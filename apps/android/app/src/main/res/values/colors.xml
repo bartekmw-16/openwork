@@ -5,4 +5,5 @@
     <color name="tymer_blue_dark">#1E40AF</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="ic_launcher_background">#F0F0F2</color>
 </resources>
