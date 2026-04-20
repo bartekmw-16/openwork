@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "OpenWork",
+  "productName": "Tymer Studio",
   "version": "0.11.202",
-  "identifier": "com.differentai.openwork",
+  "identifier": "com.tymerstudio.app",
   "build": {
     "beforeDevCommand": "node ./scripts/tauri-before-dev.mjs",
     "beforeBuildCommand": "node ./scripts/tauri-before-build.mjs",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "OpenWork",
+        "title": "Tymer Studio",
         "width": 1180,
         "height": 820,
         "resizable": true
@@ -47,7 +47,7 @@
     "deep-link": {
       "desktop": {
         "schemes": [
-          "openwork"
+          "tymerstudio"
         ]
       }
     },

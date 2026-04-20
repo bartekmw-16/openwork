@@ -1,21 +1,21 @@
-> OpenWork is the open source alternative to Claude Cowork/Codex (desktop app).
+> Tymer Studio is the open source alternative to Claude Cowork/Codex (desktop app).
 
 
 ## Core Philosophy
 
-- Local-first, cloud-ready: OpenWork runs on your machine in one click. Send a message instantly.
+- Local-first, cloud-ready: Tymer Studio runs on your machine in one click. Send a message instantly.
 - Composable: desktop app, WhatsApp/Slack/Telegram connector, or server. Use what fits, no lock-in.
-- Ejectable: OpenWork is powered by OpenCode, so everything OpenCode can do works in OpenWork, even without a UI yet.
+- Ejectable: Tymer Studio is powered by OpenCode, so everything OpenCode can do works in Tymer Studio, even without a UI yet.
 - Sharing is caring: start solo on localhost, then explicitly opt into remote sharing when you need it.
 
 <p align="center">
-  <img src="./app-demo.gif" alt="OpenWork demo" width="800" />
+  <img src="./app-demo.gif" alt="Tymer Studio demo" width="800" />
 </p>
 
-OpenWork is designed around the idea that you can easily ship your agentic workflows as a repeatable, productized process.
+Tymer Studio is designed around the idea that you can easily ship your agentic workflows as a repeatable, productized process.
 
 ## Alternate UIs
-- **OpenWork Orchestrator (CLI host)**: run OpenCode + OpenWork server without the desktop UI.
+- **Tymer Studio Orchestrator (CLI host)**: run OpenCode + Tymer Studio server without the desktop UI.
   - install: `npm install -g openwork-orchestrator`
   - run: `openwork start --workspace /path/to/workspace --approval auto`
   - docs: [apps/orchestrator/README.md](./apps/orchestrator/README.md)
@@ -26,18 +26,18 @@ Download the desktop app from [openworklabs.com/download](https://openworklabs.c
 
 - macOS and Linux downloads are available directly.
 - Windows access is currently handled through the paid support plan on [openworklabs.com/pricing#windows-support](https://openworklabs.com/pricing#windows-support).
-- Hosted OpenWork Cloud workers are launched from the web app after checkout, then connected from the desktop app via `Add a worker` -> `Connect remote`.
+- Hosted Tymer Studio Cloud workers are launched from the web app after checkout, then connected from the desktop app via `Add a worker` -> `Connect remote`.
 
 ## Why
 
 Current CLI and GUIs for opencode are anchored around developers. That means a focus on file diffs, tool names, and hard to extend capabilities without relying on exposing some form of cli.
 
-OpenWork is designed to be:
+Tymer Studio is designed to be:
 
 - **Extensible**: skill and opencode plugins are installable modules.
 - **Auditable**: show what happened, when, and why.
 - **Permissioned**: access to privileged flows.
-- **Local/Remote**: OpenWork works locally as well as can connect to remote servers.
+- **Local/Remote**: Tymer Studio works locally as well as can connect to remote servers.
 
 ## What’s Included
 

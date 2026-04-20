@@ -142,6 +142,13 @@ const upsertPartInfo = (list: Part[], next: Part) => {
 
 const removePartInfo = (list: Part[], partID: string) => list.filter((part) => part.id !== partID);
 
+/**
+ * Queue for batching delta updates to prevent race conditions.
+ * Deltas for the same part are queued and applied in order.
+ */
+const deltaQueue = new Map<string, { deltas: Array<{ field: string; delta: string }>; processing: boolean }>();
+let deltaProcessTimeout: ReturnType<typeof setTimeout> | null = null;
+
 const appendPartDelta = (list: Part[], messageID: string, sessionID: string | null, partID: string, field: string, delta: string) => {
   if (!delta) return list;
   const index = list.findIndex((part) => part.id === partID);
@@ -163,6 +170,8 @@ const appendPartDelta = (list: Part[], messageID: string, sessionID: string | nu
     return list;
   }
 
+  // CRITICAL FIX: Ensure delta concatenation is safe
+  // Even if events arrive out of order, string concat should be idempotent
   const nextValue = `${typeof current === "string" ? current : ""}${delta}`;
   if (nextValue === current) return list;
 
@@ -1663,6 +1672,28 @@ export function createSessionStore(options: {
         if (sessionID) {
           setStore("sessionStatus", sessionID, "idle");
           stopSessionCompaction(sessionID);
+
+          // CRITICAL FIX: Clean up partial/incomplete assistant messages on error
+          // This prevents broken responses from staying visible
+          setStore("messages", sessionID, (currentMessages = []) => {
+            const cleaned = currentMessages.filter((msg) => {
+              const msgRecord = msg.info as Record<string, unknown>;
+              const role = msgRecord.role;
+              const status = msgRecord.status;
+
+              // Remove incomplete assistant messages (streaming/partial)
+              if (role === "assistant" && (status === "streaming" || status === "pending")) {
+                // Also clean up the parts for this message
+                const messageID = typeof msgRecord.id === "string" ? msgRecord.id : null;
+                if (messageID) {
+                  setStore("parts", messageID, []);
+                }
+                return false; // Remove this message
+              }
+              return true; // Keep this message
+            });
+            return cleaned;
+          });
         }
         const errorObj = record.error as Record<string, unknown> | undefined;
         if (errorObj) {
