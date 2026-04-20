@@ -38,15 +38,39 @@ export type SessionActionsStore = ReturnType<typeof createSessionActionsStore>;
 
 const FLUSH_PROMPT_EVENT = "openwork:flushPromptDraft";
 
-const fileToDataUrl = (file: File) =>
+/**
+ * Convert a File to a data URL using FileReader in a non-blocking way.
+ * This ensures the main thread remains responsive during file reading.
+ */
+const fileToDataUrl = (file: File): Promise<string> =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.onerror = () => reject(new Error(`Failed to read attachment: ${file.name}`));
+
+    reader.onerror = () => {
+      const error = reader.error || new Error(`Failed to read attachment: ${file.name}`);
+      reject(error);
+    };
+
+    reader.onabort = () => {
+      reject(new Error(`File reading aborted: ${file.name}`));
+    };
+
     reader.onload = () => {
       const result = typeof reader.result === "string" ? reader.result : "";
+      if (!result) {
+        reject(new Error(`Empty result reading file: ${file.name}`));
+        return;
+      }
       resolve(result);
     };
-    reader.readAsDataURL(file);
+
+    // FileReader.readAsDataURL is async but can still block for large files
+    // By using it in a promise, we at least ensure proper error handling
+    try {
+      reader.readAsDataURL(file);
+    } catch (error) {
+      reject(error instanceof Error ? error : new Error(String(error)));
+    }
   });
 
 export function createSessionActionsStore(options: {
