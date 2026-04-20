@@ -157,56 +157,133 @@ const estimateInlineAttachmentBytes = (file: Blob) => {
 };
 
 /**
- * Compress an image file to JPEG using OffscreenCanvas (off main thread when possible).
- * Falls back to regular canvas if OffscreenCanvas is unavailable.
+ * Web Worker singleton for image compression.
+ * Lazy-loaded on first use to avoid creating workers unnecessarily.
+ */
+let imageWorker: Worker | null = null;
+let workerPendingRequests = new Map<string, { resolve: (file: File) => void; reject: (error: Error) => void }>();
+
+const getImageWorker = (): Worker => {
+  if (!imageWorker) {
+    // Create worker from inline blob to avoid bundler issues
+    const workerCode = `
+const IMAGE_COMPRESS_MAX_PX = 2048;
+const IMAGE_COMPRESS_QUALITY = 0.82;
+const IMAGE_COMPRESS_TARGET_BYTES = 1500000;
+
+self.onmessage = async (event) => {
+  const { id, file } = event.data;
+  try {
+    if (file.type === "image/gif" || file.size <= IMAGE_COMPRESS_TARGET_BYTES) {
+      self.postMessage({ id, success: true, result: file });
+      return;
+    }
+    const bitmap = await createImageBitmap(file);
+    const { width, height } = bitmap;
+    const maxDim = Math.max(width, height);
+    const scale = maxDim > IMAGE_COMPRESS_MAX_PX ? IMAGE_COMPRESS_MAX_PX / maxDim : 1;
+    const targetW = Math.round(width * scale);
+    const targetH = Math.round(height * scale);
+    const offscreen = new OffscreenCanvas(targetW, targetH);
+    const ctx = offscreen.getContext("2d");
+    if (!ctx) {
+      self.postMessage({ id, success: true, result: file });
+      bitmap.close();
+      return;
+    }
+    ctx.drawImage(bitmap, 0, 0, targetW, targetH);
+    const blob = await offscreen.convertToBlob({ type: "image/jpeg", quality: IMAGE_COMPRESS_QUALITY });
+    bitmap.close();
+    if (!blob || blob.size >= file.size) {
+      self.postMessage({ id, success: true, result: file });
+      return;
+    }
+    const ext = file.name.replace(/\\.[^.]+$/, "");
+    const compressedFile = new File([blob], \`\${ext || "image"}.jpg\`, { type: "image/jpeg" });
+    self.postMessage({ id, success: true, result: compressedFile });
+  } catch (error) {
+    self.postMessage({ id, success: false, error: error instanceof Error ? error.message : "Compression failed" });
+  }
+};
+`;
+    const blob = new Blob([workerCode], { type: "application/javascript" });
+    imageWorker = new Worker(URL.createObjectURL(blob));
+
+    imageWorker.onmessage = (event: MessageEvent) => {
+      const { id, success, result, error } = event.data;
+      const pending = workerPendingRequests.get(id);
+      if (!pending) return;
+      workerPendingRequests.delete(id);
+      if (success) {
+        pending.resolve(result);
+      } else {
+        pending.reject(new Error(error || "Compression failed"));
+      }
+    };
+
+    imageWorker.onerror = (error) => {
+      console.error("Image worker error:", error);
+      // Reject all pending requests
+      for (const [id, pending] of workerPendingRequests.entries()) {
+        pending.reject(new Error("Worker failed"));
+        workerPendingRequests.delete(id);
+      }
+    };
+  }
+  return imageWorker;
+};
+
+/**
+ * Compress an image file using a Web Worker (non-blocking).
  * Returns a new File with compressed data, or the original if compression isn't beneficial.
  */
 const compressImageFile = async (file: File): Promise<File> => {
-  // Skip GIFs (animated) and already-small images
+  // Skip GIFs (animated) and already-small images - fast path
   if (file.type === "image/gif" || file.size <= IMAGE_COMPRESS_TARGET_BYTES) {
     return file;
   }
 
-  const bitmap = await createImageBitmap(file);
-  const { width, height } = bitmap;
-
-  // Calculate scaled dimensions
-  const maxDim = Math.max(width, height);
-  const scale = maxDim > IMAGE_COMPRESS_MAX_PX ? IMAGE_COMPRESS_MAX_PX / maxDim : 1;
-  const targetW = Math.round(width * scale);
-  const targetH = Math.round(height * scale);
-
-  let blob: Blob | null = null;
-
-  if (typeof OffscreenCanvas !== "undefined") {
-    const offscreen = new OffscreenCanvas(targetW, targetH);
-    const ctx = offscreen.getContext("2d");
-    if (ctx) {
-      ctx.drawImage(bitmap, 0, 0, targetW, targetH);
-      blob = await offscreen.convertToBlob({ type: "image/jpeg", quality: IMAGE_COMPRESS_QUALITY });
-    }
+  // Check if we can use Web Workers
+  if (typeof Worker === "undefined" || typeof OffscreenCanvas === "undefined") {
+    // Fallback: return original file to avoid blocking main thread
+    console.warn("Web Worker or OffscreenCanvas not available, skipping compression");
+    return file;
   }
 
-  if (!blob) {
-    const canvas = document.createElement("canvas");
-    canvas.width = targetW;
-    canvas.height = targetH;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return file;
-    ctx.drawImage(bitmap, 0, 0, targetW, targetH);
-    blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, "image/jpeg", IMAGE_COMPRESS_QUALITY),
-    );
+  try {
+    const worker = getImageWorker();
+    const id = `compress-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    return await new Promise<File>((resolve, reject) => {
+      workerPendingRequests.set(id, { resolve, reject });
+
+      // Add timeout to prevent hanging
+      const timeout = setTimeout(() => {
+        workerPendingRequests.delete(id);
+        reject(new Error("Image compression timed out"));
+      }, 10000);
+
+      // Override resolve/reject to clear timeout
+      const originalResolve = resolve;
+      const originalReject = reject;
+      workerPendingRequests.set(id, {
+        resolve: (result) => {
+          clearTimeout(timeout);
+          originalResolve(result);
+        },
+        reject: (error) => {
+          clearTimeout(timeout);
+          originalReject(error);
+        }
+      });
+
+      worker.postMessage({ id, file });
+    });
+  } catch (error) {
+    console.error("Image compression failed:", error);
+    // Fallback: return original file
+    return file;
   }
-
-  bitmap.close();
-
-  if (!blob || blob.size >= file.size) {
-    return file; // Compression didn't help
-  }
-
-  const ext = file.name.replace(/\.[^.]+$/, "");
-  return new File([blob], `${ext || "image"}.jpg`, { type: "image/jpeg" });
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
