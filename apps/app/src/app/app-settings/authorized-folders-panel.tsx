@@ -133,13 +133,13 @@ export default function AuthorizedFoldersPanel(props: AuthorizedFoldersPanelProp
       (props.openworkServerCapabilities?.config?.write ?? false),
   );
   const authorizedFoldersHint = createMemo(() => {
-    if (!openworkServerReady()) return "OpenWork server is disconnected.";
+    if (!openworkServerReady()) return "Tymer Studio server is disconnected.";
     if (!openworkServerWorkspaceReady()) return "No active server workspace is selected.";
     if (!canReadConfig()) {
-      return "OpenWork server config access is unavailable for this workspace.";
+      return "Tymer Studio server config access is unavailable for this workspace.";
     }
     if (!canWriteConfig()) {
-      return "OpenWork server is connected read-only for workspace config.";
+      return "Tymer Studio server is connected read-only for workspace config.";
     }
     return null;
   });
@@ -206,7 +206,7 @@ export default function AuthorizedFoldersPanel(props: AuthorizedFoldersPanelProp
     const openworkWorkspaceId = props.runtimeWorkspaceId;
     if (!openworkClient || !openworkWorkspaceId || !canWriteConfig()) {
       setAuthorizedFoldersError(
-        "A writable OpenWork server workspace is required to update authorized folders.",
+        "A writable Tymer Studio server workspace is required to update authorized folders.",
       );
       return false;
     }
@@ -333,7 +333,7 @@ export default function AuthorizedFoldersPanel(props: AuthorizedFoldersPanelProp
         fallback={
           <div class={`${softPanelClass} px-3 py-3 text-xs text-gray-10`}>
             {authorizedFoldersHint() ??
-              "Connect to a writable OpenWork server workspace to edit authorized folders."}
+              "Connect to a writable Tymer Studio server workspace to edit authorized folders."}
           </div>
         }
       >

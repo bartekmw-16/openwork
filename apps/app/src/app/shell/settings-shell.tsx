@@ -671,7 +671,7 @@ export default function SettingsShell(props: SettingsShellProps) {
     const ws = shareWorkspace();
     if (!ws) return "Select a workspace first.";
     if (ws.workspaceType === "remote" && ws.remoteType !== "openwork") {
-      return "Share service links are available for OpenWork workers.";
+      return "Share service links are available for Tymer Studio workers.";
     }
     if (ws.workspaceType !== "remote") {
       const baseUrl = props.openworkServerHostInfo?.baseUrl?.trim() ?? "";
@@ -680,13 +680,13 @@ export default function SettingsShell(props: SettingsShellProps) {
         props.openworkServerHostInfo?.clientToken?.trim() ||
         "";
       if (!baseUrl || !token) {
-        return "Local OpenWork host is not ready yet.";
+        return "Local Tymer Studio host is not ready yet.";
       }
     } else {
       const hostUrl = ws.openworkHostUrl?.trim() || ws.baseUrl?.trim() || "";
       const token = ws.openworkToken?.trim() || props.openworkServerSettings.token?.trim() || "";
-      if (!hostUrl) return "Missing OpenWork host URL.";
-      if (!token) return "Missing OpenWork token.";
+      if (!hostUrl) return "Missing Tymer Studio host URL.";
+      if (!token) return "Missing Tymer Studio token.";
     }
     return null;
   });
@@ -752,7 +752,7 @@ export default function SettingsShell(props: SettingsShellProps) {
         props.openworkServerHostInfo?.clientToken?.trim() ||
         "";
       if (!baseUrl || !token) {
-        throw new Error("Local OpenWork host is not ready yet.");
+        throw new Error("Local Tymer Studio host is not ready yet.");
       }
       const client = createOpenworkServerClient({ baseUrl, token });
 
@@ -767,20 +767,20 @@ export default function SettingsShell(props: SettingsShellProps) {
       }
 
       if (!workspaceId) {
-        throw new Error("Could not resolve this workspace on the local OpenWork host.");
+        throw new Error("Could not resolve this workspace on the local Tymer Studio host.");
       }
 
       return { client, workspaceId, workspace: ws };
     }
 
     if (ws.remoteType !== "openwork") {
-      throw new Error("Share service links are available for OpenWork workers.");
+      throw new Error("Share service links are available for Tymer Studio workers.");
     }
 
     const hostUrl = ws.openworkHostUrl?.trim() || ws.baseUrl?.trim() || "";
     const token = ws.openworkToken?.trim() || props.openworkServerSettings.token?.trim() || "";
     if (!hostUrl || !token) {
-      throw new Error("OpenWork host URL and token are required.");
+      throw new Error("Tymer Studio host URL and token are required.");
     }
 
     const client = createOpenworkServerClient({ baseUrl: hostUrl, token });
@@ -807,7 +807,7 @@ export default function SettingsShell(props: SettingsShellProps) {
     }
 
     if (!workspaceId) {
-      throw new Error("Could not resolve this workspace on the OpenWork host.");
+      throw new Error("Could not resolve this workspace on the Tymer Studio host.");
     }
 
     return { client, workspaceId, workspace: ws };
