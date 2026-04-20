@@ -424,6 +424,39 @@ export function createSessionActionsStore(options: {
     return await createSessionInWorkspace(workspaceId, initialPrompt);
   }
 
+  // Helper for timeout + cancellation
+  const withTimeoutAndCancel = async <T,>(
+    promise: Promise<T>,
+    ms: number,
+    label: string,
+    abortSignal?: AbortSignal,
+  ): Promise<T> => {
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error(`Timed out waiting for ${label}`)), ms);
+    });
+
+    const abortPromise = abortSignal
+      ? new Promise<never>((_, reject) => {
+          if (abortSignal.aborted) {
+            reject(new Error(`Request aborted: ${label}`));
+          }
+          abortSignal.addEventListener("abort", () => {
+            reject(new Error(`Request aborted: ${label}`));
+          });
+        })
+      : null;
+
+    try {
+      const promises = abortPromise ? [promise, timeoutPromise, abortPromise] : [promise, timeoutPromise];
+      return await Promise.race(promises);
+    } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
+  };
+
   async function sendPrompt(draft?: ComposerDraft) {
     const hasExplicitDraft = Boolean(draft);
     const fallbackText = options.prompt().trim();
@@ -460,6 +493,9 @@ export function createSessionActionsStore(options: {
     }
     if (!sessionID) return;
 
+    // Create AbortController for request cancellation
+    const abortController = new AbortController();
+
     options.setBusy(true);
     options.setBusyLabel("status.running");
     options.setBusyStartedAt(Date.now());
@@ -479,13 +515,16 @@ export function createSessionActionsStore(options: {
       partCount: visibleParts,
     });
 
+    // Save draft content for retry/recovery
+    let savedDraft: { content: string; attachments: ComposerAttachment[] } | null = null;
+
     try {
       if (!compactCommand) {
         setLastPromptSent(content);
-      }
-      clearSessionDraft(options.selectedWorkspaceId().trim(), sessionID);
-      if (!hasExplicitDraft) {
-        options.setPrompt("");
+        savedDraft = {
+          content,
+          attachments: resolvedDraft.attachments,
+        };
       }
 
       const model = options.selectedSessionModel();
@@ -497,7 +536,12 @@ export function createSessionActionsStore(options: {
       const promptOverrides = reasoningEffort ? ({ reasoning_effort: reasoningEffort } as const) : undefined;
 
       if (resolvedDraft.mode === "shell") {
-        await shellInSession(c, sessionID, content);
+        await withTimeoutAndCancel(
+          shellInSession(c, sessionID, content),
+          30_000,
+          "shell command",
+          abortController.signal,
+        );
       } else if (resolvedDraft.command || compactCommand) {
         if (compactCommand) {
           await compactCurrentSession(sessionID);
@@ -518,26 +562,37 @@ export function createSessionActionsStore(options: {
         const files = await buildCommandFileParts(resolvedDraft);
 
         unwrap(
-          await c.session.command({
-            sessionID,
-            command: command.name,
-            arguments: command.arguments,
-            agent: agent ?? undefined,
-            model: modelString,
-            variant: requestVariant,
-            ...(promptOverrides ?? {}),
-            parts: files.length ? files : undefined,
-          }),
+          await withTimeoutAndCancel(
+            c.session.command({
+              sessionID,
+              command: command.name,
+              arguments: command.arguments,
+              agent: agent ?? undefined,
+              model: modelString,
+              variant: requestVariant,
+              ...(promptOverrides ?? {}),
+              parts: files.length ? files : undefined,
+            }),
+            45_000,
+            "command execution",
+            abortController.signal,
+          ),
         );
       } else {
-        const result = await c.session.promptAsync({
-          sessionID,
-          model,
-          agent: agent ?? undefined,
-          variant: requestVariant,
-          ...(promptOverrides ?? {}),
-          parts,
-        });
+        // CRITICAL FIX: Add timeout + cancellation to promptAsync
+        const result = await withTimeoutAndCancel(
+          c.session.promptAsync({
+            sessionID,
+            model,
+            agent: agent ?? undefined,
+            variant: requestVariant,
+            ...(promptOverrides ?? {}),
+            parts,
+          }),
+          30_000,
+          "prompt",
+          abortController.signal,
+        );
         assertNoClientError(result);
 
         options.modelConfig.setSessionModelById((current) => ({
@@ -546,6 +601,12 @@ export function createSessionActionsStore(options: {
         }));
 
         options.modelConfig.clearSessionModelOverride(sessionID);
+      }
+
+      // CRITICAL FIX: Only clear draft AFTER successful API call
+      clearSessionDraft(options.selectedWorkspaceId().trim(), sessionID);
+      if (!hasExplicitDraft) {
+        options.setPrompt("");
       }
 
       finishPerf(perfEnabled, "session.prompt", "done", startedAt, {
@@ -560,8 +621,39 @@ export function createSessionActionsStore(options: {
         command: commandName,
         error: e instanceof Error ? e.message : safeStringify(e),
       });
+
       const message = e instanceof Error ? e.message : safeStringify(e);
-      options.appendSessionErrorTurn(sessionID, addOpencodeCacheHint(message));
+      const isTimeout = message.includes("Timed out") || message.includes("timeout");
+      const isAborted = message.includes("abort");
+      const isNetwork = message.includes("network") || message.includes("ECONNREFUSED") || message.includes("ETIMEDOUT");
+      const isRetryable = isTimeout || isNetwork;
+
+      // Restore draft if operation failed and was retryable
+      if (savedDraft && isRetryable) {
+        if (!hasExplicitDraft) {
+          options.setPrompt(savedDraft.content);
+        }
+        // Save draft back to storage for recovery
+        saveSessionDraft(options.selectedWorkspaceId().trim(), sessionID, {
+          text: savedDraft.content,
+          mode: resolvedDraft.mode,
+        });
+      }
+
+      // Provide better error messages
+      let errorMessage = message;
+      if (isTimeout) {
+        errorMessage = `Request timed out. ${isRetryable ? "You can retry your message." : ""}`;
+      } else if (isAborted) {
+        errorMessage = "Request was cancelled.";
+      } else if (isNetwork) {
+        errorMessage = `Network error: ${message}. ${isRetryable ? "You can retry your message." : ""}`;
+      }
+
+      options.appendSessionErrorTurn(sessionID, addOpencodeCacheHint(errorMessage));
+
+      // Abort request if still pending
+      abortController.abort();
     } finally {
       options.setBusy(false);
       options.setBusyLabel(null);
