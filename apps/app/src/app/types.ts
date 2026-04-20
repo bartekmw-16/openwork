@@ -13,11 +13,27 @@ export type Client = ReturnType<typeof createClient>;
 
 export type ProviderListItem = ProviderListResponse["all"][number];
 
+export type SessionIcon =
+  | { type: "emoji"; value: string }
+  | { type: "image"; dataUrl: string };
+
+export type Project = {
+  id: string;
+  workspaceId: string;
+  name: string;
+  icon?: SessionIcon | null;
+  color?: string | null;
+  createdAt: number;
+  updatedAt: number;
+};
+
 export type SidebarSessionItem = {
   id: string;
   title: string;
   slug?: string | null;
   parentID?: string | null;
+  projectID?: string | null;
+  icon?: SessionIcon | null;
   time?: {
     updated?: number | null;
     created?: number | null;
