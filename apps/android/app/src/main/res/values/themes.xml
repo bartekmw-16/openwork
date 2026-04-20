@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.TymerStudio" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/tymer_blue</item>
+        <item name="colorPrimaryVariant">@color/tymer_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Theme.TymerStudio" parent="Base.Theme.TymerStudio" />
+</resources>
