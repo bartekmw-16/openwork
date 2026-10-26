@@ -600,8 +600,8 @@ export function createSessionStore(options: {
 
     const message =
       kind === "task-summary"
-        ? "OpenWork stopped this run after detecting a likely synthetic task-summary loop. The engine kept asking itself to summarize task output and continue, which can repeat Goal/Instructions/Discoveries summaries without making progress."
-        : "OpenWork stopped this run after detecting a likely auto-compaction continuation loop. The engine kept injecting synthetic continue prompts after compaction, which can burn tokens without advancing the task.";
+        ? "Tymer Studio stopped this run after detecting a likely synthetic task-summary loop. The engine kept asking itself to summarize task output and continue, which can repeat Goal/Instructions/Discoveries summaries without making progress."
+        : "Tymer Studio stopped this run after detecting a likely auto-compaction continuation loop. The engine kept injecting synthetic continue prompts after compaction, which can burn tokens without advancing the task.";
 
     sessionWarn("session.synthetic-loop.abort", {
       sessionID,

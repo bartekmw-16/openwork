@@ -287,7 +287,7 @@ export type HubSkillCard = {
   };
 };
 
-/** OpenWork Cloud (Den) org skill surfaced in the Skills catalog (team hub + shared). */
+/** Tymer Studio Cloud (Den) org skill surfaced in the Skills catalog (team hub + shared). */
 export type DenOrgSkillCard = {
   id: string;
   title: string;

@@ -195,7 +195,7 @@ export function createBundlesStore(options: {
         window.setTimeout(resolve, 200);
       });
     }
-    throw new Error("OpenWork worker is not ready yet.");
+    throw new Error("Tymer Studio worker is not ready yet.");
   };
 
   const importBundlePayload = async (bundle: BundleV1, target?: BundleImportTarget) => {
@@ -241,7 +241,7 @@ export function createBundlesStore(options: {
     const hostUrl = target.hostUrl.trim();
     const token = target.token.trim();
     if (!hostUrl || !token) {
-      throw new Error("Bundle link detected. Configure an OpenWork worker host and token, then open the link again.");
+      throw new Error("Bundle link detected. Configure a Tymer Studio worker host and token, then open the link again.");
     }
 
     const label = (request.label?.trim() || bundle.name?.trim() || t("app.shared_setup")).slice(0, 80);
@@ -397,7 +397,7 @@ export function createBundlesStore(options: {
       if (!client || !connected || !hasTargetHint) {
         if (!bundleNoticeShown()) {
           setBundleNoticeShown(true);
-          options.setError("Bundle link detected. Connect to a writable OpenWork worker to import this bundle.");
+          options.setError("Bundle link detected. Connect to a writable Tymer Studio worker to import this bundle.");
         }
         return { mode: "blocked_import_current", bundle };
       }
@@ -406,7 +406,7 @@ export function createBundlesStore(options: {
       if (!target.hostUrl.trim() || !target.token.trim()) {
         if (!bundleNoticeShown()) {
           setBundleNoticeShown(true);
-          options.setError("Bundle link detected. Configure an OpenWork host and token to create a new worker.");
+          options.setError("Bundle link detected. Configure a Tymer Studio host and token to create a new worker.");
         }
         return { mode: "blocked_new_worker", bundle };
       }
@@ -650,8 +650,8 @@ export function createBundlesStore(options: {
       if (!resolveBundleImportTargetForWorkspace(workspace)) {
         disabledReason =
           workspace.workspaceType === "remote" && workspace.remoteType !== "openwork"
-            ? "Only OpenWork-connected workers support direct bundle imports."
-            : "This worker is missing the info OpenWork needs to import the bundle.";
+            ? "Only Tymer Studio-connected workers support direct bundle imports."
+            : "This worker is missing the info Tymer Studio needs to import the bundle.";
       }
 
       const label =

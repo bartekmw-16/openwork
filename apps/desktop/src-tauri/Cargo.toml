@@ -1,16 +1,16 @@
 [package]
-name = "openwork"
+name = "tymerstudio"
 version = "0.11.202"
-description = "OpenWork"
-authors = ["Different AI"]
+description = "Tymer Studio"
+authors = ["Tymer Studio"]
 edition = "2021"
-default-run = "OpenWork-Dev"
+default-run = "TymerStudio"
 
 [lib]
-name = "openwork"
+name = "tymerstudio"
 
 [[bin]]
-name = "OpenWork-Dev"
+name = "TymerStudio"
 path = "src/main.rs"
 
 [build-dependencies]

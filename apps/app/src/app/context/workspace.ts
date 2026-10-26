@@ -211,7 +211,7 @@ export function createWorkspaceStore(options: {
   const DEFAULT_CONNECT_HEALTH_TIMEOUT_MS = 12_000;
   const LOCAL_BOOT_CONNECT_HEALTH_TIMEOUT_MS = 180_000;
   const LONG_BOOT_CONNECT_REASONS = new Set(["host-start", "bootstrap-local"]);
-  const DEFAULT_WORKSPACE_HOME_FOLDER_NAME = "OpenWork";
+  const DEFAULT_WORKSPACE_HOME_FOLDER_NAME = "Tymer Studio";
   const FIRST_RUN_WELCOME_WORKSPACE_NAME = "Welcome";
   const preferredInitialSessionTitleForPreset = (preset: WorkspacePreset) => {
     const trimmed = defaultBlueprintSessionsForPreset(preset)
@@ -812,15 +812,15 @@ export function createWorkspaceStore(options: {
     } catch (error) {
       if (error instanceof OpenworkServerError && (error.status === 401 || error.status === 403)) {
         if (!trimmedToken) {
-          throw new Error("Access token required for OpenWork server.");
+          throw new Error("Access token required for Tymer Studio server.");
         }
-        throw new Error("OpenWork server rejected the access token.");
+        throw new Error("Tymer Studio server rejected the access token.");
       }
       return { kind: "fallback" as const };
     }
 
     if (!trimmedToken) {
-      throw new Error("Access token required for OpenWork server.");
+      throw new Error("Access token required for Tymer Studio server.");
     }
 
     const response = await client.listWorkspaces();
@@ -839,7 +839,7 @@ export function createWorkspaceStore(options: {
       ? (items.find((item) => item?.id && selectById(item as any)) as OpenworkWorkspaceInfo | undefined)
       : undefined;
     if (requestedWorkspaceId && !workspaceById) {
-      throw new Error("OpenWork worker not found on that host.");
+      throw new Error("Tymer Studio worker not found on that host.");
     }
 
     const workspaceByHint = hint
@@ -848,11 +848,11 @@ export function createWorkspaceStore(options: {
 
     const workspace = (workspaceById ?? workspaceByHint ?? items[0]) as OpenworkWorkspaceInfo | undefined;
     if (!workspace?.id) {
-      throw new Error("OpenWork server did not return a worker.");
+      throw new Error("Tymer Studio server did not return a worker.");
     }
     const opencodeUpstreamBaseUrl = workspace.opencode?.baseUrl?.trim() ?? workspace.baseUrl?.trim() ?? "";
     if (!opencodeUpstreamBaseUrl) {
-      throw new Error("OpenWork server did not provide an OpenCode URL.");
+      throw new Error("Tymer Studio server did not provide an OpenCode URL.");
     }
 
     const workspaceScopedBaseUrl =
@@ -1092,7 +1092,7 @@ export function createWorkspaceStore(options: {
     const start = Date.now();
     const localServer = await resolveLocalOpenworkServer();
     if (!localServer) {
-      throw new Error("Local OpenWork server is unavailable after opening the workspace.");
+      throw new Error("Local Tymer Studio server is unavailable after opening the workspace.");
     }
 
     let createAttempted = false;
@@ -1110,7 +1110,7 @@ export function createWorkspaceStore(options: {
       await sleep(pollMs);
     }
 
-    throw new Error("Local OpenWork server never registered the created workspace.");
+    throw new Error("Local Tymer Studio server never registered the created workspace.");
   };
 
   const materializeStarterSessions = async (
@@ -1199,7 +1199,7 @@ export function createWorkspaceStore(options: {
       if (!hostUrl) {
         updateWorkspaceConnectionState(id, {
           status: "error",
-          message: "OpenWork server URL is required.",
+          message: "Tymer Studio server URL is required.",
         });
         return false;
       }
@@ -1214,7 +1214,7 @@ export function createWorkspaceStore(options: {
         if (resolved.kind !== "openwork") {
           updateWorkspaceConnectionState(id, {
             status: "error",
-            message: "OpenWork server unavailable. Check the URL and token.",
+            message: "Tymer Studio server unavailable. Check the URL and token.",
           });
           return false;
         }
@@ -1407,10 +1407,10 @@ export function createWorkspaceStore(options: {
         if (remoteType === "openwork") {
           const hostUrl = next.openworkHostUrl?.trim() ?? "";
           if (!hostUrl) {
-            options.setError("OpenWork server URL is required.");
+            options.setError("Tymer Studio server URL is required.");
             updateWorkspaceConnectionState(id, {
               status: "error",
-              message: "OpenWork server URL is required.",
+              message: "Tymer Studio server URL is required.",
             });
             return false;
           }
@@ -1521,10 +1521,10 @@ export function createWorkspaceStore(options: {
               directoryHint: next.directory ?? null,
             });
             if (resolved.kind !== "openwork") {
-              options.setError("OpenWork server unavailable. Check the URL and token.");
+              options.setError("Tymer Studio server unavailable. Check the URL and token.");
               updateWorkspaceConnectionState(id, {
                 status: "error",
-                message: "OpenWork server unavailable. Check the URL and token.",
+                message: "Tymer Studio server unavailable. Check the URL and token.",
               });
               return false;
             }
@@ -2294,8 +2294,8 @@ export function createWorkspaceStore(options: {
         { key: "docker", label: "Docker ready", status: "active", detail: null },
         { key: "workspace", label: "Prepare worker", status: "pending", detail: null },
         { key: "sandbox", label: "Start sandbox services", status: "pending", detail: null },
-        { key: "health", label: "Wait for OpenWork", status: "pending", detail: null },
-        { key: "connect", label: "Connect in OpenWork", status: "pending", detail: null },
+        { key: "health", label: "Wait for Tymer Studio", status: "pending", detail: null },
+        { key: "connect", label: "Connect in Tymer Studio", status: "pending", detail: null },
       ],
     });
 
@@ -2347,7 +2347,7 @@ export function createWorkspaceStore(options: {
       setSandboxStep("workspace", { status: "active", detail: name });
       pushSandboxCreateLog(`Worker: ${resolvedFolder}`);
 
-      // Ensure the workspace folder has baseline OpenWork/OpenCode files.
+      // Ensure the workspace folder has baseline Tymer Studio/OpenCode files.
       const openworkServer = await resolveLocalOpenworkServer();
       const created = openworkServer
         ? await openworkServer.createLocalWorkspace({ folderPath: resolvedFolder, name, preset })
@@ -2612,7 +2612,7 @@ export function createWorkspaceStore(options: {
           directory: resolvedDirectory,
         });
       } else {
-        options.setError("OpenWork server unavailable. Check the URL and token.");
+        options.setError("Tymer Studio server unavailable. Check the URL and token.");
         return false;
       }
     } catch (error) {
@@ -2771,7 +2771,7 @@ export function createWorkspaceStore(options: {
 
     const remoteType = normalizeRemoteType(workspace.remoteType);
     if (remoteType !== "openwork") {
-      options.setError("Only OpenWork remote workers can be edited.");
+      options.setError("Only Tymer Studio remote workers can be edited.");
       return false;
     }
 
@@ -2815,7 +2815,7 @@ export function createWorkspaceStore(options: {
         directoryHint: directory || null,
       });
       if (resolved.kind !== "openwork") {
-        options.setError("OpenWork server unavailable. Check the URL and token.");
+        options.setError("Tymer Studio server unavailable. Check the URL and token.");
         return false;
       }
       resolvedBaseUrl = resolved.opencodeBaseUrl;
@@ -3168,7 +3168,7 @@ export function createWorkspaceStore(options: {
       const outputPath = await saveFile({
         title: "Export worker config",
         defaultPath,
-        filters: [{ name: "OpenWork Worker", extensions: ["openwork-workspace", "zip"] }],
+        filters: [{ name: "Tymer Studio Worker", extensions: ["openwork-workspace", "zip"] }],
       });
 
       if (!outputPath) {
@@ -3200,7 +3200,7 @@ export function createWorkspaceStore(options: {
     try {
       const selection = await pickFile({
         title: "Import worker config",
-        filters: [{ name: "OpenWork Worker", extensions: ["openwork-workspace", "zip"] }],
+        filters: [{ name: "Tymer Studio Worker", extensions: ["openwork-workspace", "zip"] }],
       });
       const filePath =
         typeof selection === "string" ? selection : Array.isArray(selection) ? selection[0] : null;
@@ -3272,8 +3272,8 @@ export function createWorkspaceStore(options: {
         if (!result.found) {
           options.setError(
             options.isWindowsPlatform()
-            ? "OpenCode CLI not found. Install the OpenWork-pinned OpenCode version for Windows or bundle opencode.exe with OpenWork, then restart. If it is installed, ensure `opencode.exe` is on PATH (try `opencode --version` in PowerShell)."
-            : "OpenCode CLI not found. Install the OpenWork-pinned OpenCode version, then retry.",
+            ? "OpenCode CLI not found. Install the Tymer Studio-pinned OpenCode version for Windows or bundle opencode.exe with Tymer Studio, then restart. If it is installed, ensure `opencode.exe` is on PATH (try `opencode --version` in PowerShell)."
+            : "OpenCode CLI not found. Install the Tymer Studio-pinned OpenCode version, then retry.",
         );
         return false;
       }
@@ -3284,7 +3284,7 @@ export function createWorkspaceStore(options: {
           .join("\n\n");
         const suffix = serveDetails ? `\n\nServe output:\n${serveDetails}` : "";
         options.setError(
-          `OpenCode CLI is installed, but \`opencode serve\` is unavailable. Update to the OpenWork-pinned OpenCode version and retry.${suffix}`
+          `OpenCode CLI is installed, but \`opencode serve\` is unavailable. Update to the Tymer Studio-pinned OpenCode version and retry.${suffix}`
         );
         return false;
       }
@@ -3790,6 +3790,19 @@ export function createWorkspaceStore(options: {
     void options.selectSession(lastSessionId, { skipHealthCheck: true, source: "restore-last-session" });
   }
 
+  async function refreshWorkspaces() {
+    if (!isTauriRuntime()) return;
+    try {
+      const ws = await workspaceBootstrap();
+      setWorkspaces(ws.workspaces);
+      syncSelectedWorkspaceId(pickSelectedWorkspaceId(ws.workspaces, [resolveWorkspaceListSelectedId(ws)], ws));
+    } catch (error) {
+      options.onStartupTrace?.("workspace_bootstrap:error", {
+        error: error instanceof Error ? error.message : safeStringify(error),
+      });
+    }
+  }
+
   async function bootstrapOnboarding() {
     const enterPhase = (phase: BootPhase, detail?: Record<string, unknown>) => {
       options.onBootPhaseChange?.(phase, detail);
@@ -3805,15 +3818,7 @@ export function createWorkspaceStore(options: {
 
     if (isTauriRuntime()) {
       enterPhase("workspaceBootstrap", { source: "workspace_bootstrap" });
-      try {
-        const ws = await workspaceBootstrap();
-        setWorkspaces(ws.workspaces);
-        syncSelectedWorkspaceId(pickSelectedWorkspaceId(ws.workspaces, [resolveWorkspaceListSelectedId(ws)], ws));
-      } catch (error) {
-        options.onStartupTrace?.("workspace_bootstrap:error", {
-          error: error instanceof Error ? error.message : safeStringify(error),
-        });
-      }
+      await refreshWorkspaces(); // Use the new refresh function
     }
 
     enterPhase("engineProbe", { source: "ts-probe" });

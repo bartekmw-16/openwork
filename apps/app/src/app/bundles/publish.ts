@@ -14,7 +14,7 @@ export function buildWorkspaceProfileBundle(
     schemaVersion: 1,
     type: "workspace-profile",
     name: `${workspaceName} template`,
-    description: "Full OpenWork workspace template with config, commands, skills, and portable .opencode files.",
+    description: "Full Tymer Studio workspace template with config, commands, skills, and portable .opencode files.",
     workspace: exported,
   };
 }
@@ -32,7 +32,7 @@ export function buildSkillsSetBundle(
     schemaVersion: 1,
     type: "skills-set",
     name: `${workspaceName} skills`,
-    description: "Complete skills set from an OpenWork workspace.",
+    description: "Complete skills set from a Tymer Studio workspace.",
     skills: skills.map((skill) => ({
       name: skill.name,
       description: skill.description,
@@ -91,7 +91,7 @@ export async function saveWorkspaceProfileBundleToTeam(input: {
   const settings = readDenSettings();
   const token = settings.authToken?.trim() ?? "";
   if (!token) {
-    throw new Error("Sign in to OpenWork Cloud in Settings to share with your team.");
+    throw new Error("Sign in to Tymer Studio Cloud in Settings to share with your team.");
   }
 
   const cloudClient = createDenClient({ baseUrl: settings.baseUrl, token });

@@ -23,16 +23,16 @@ export const DEFAULT_EMPTY_STATE_COPY = {
 const DEFAULT_WELCOME_BLUEPRINT_MESSAGES: WorkspaceBlueprintSessionMessage[] = [
   {
     role: "assistant",
-    text:
-      "Hi welcome to OpenWork!\n\nPeople use us to write .csv files on their computer, connect to Chrome and automate repetitive tasks, and sync contacts to Notion.\n\nBut the only limit is your imagination.\n\nWhat would you want to do?",
+      text:
+        "Hi welcome to Tymer Studio!\n\nPeople use us to write .csv files on their computer, connect to Chrome and automate repetitive tasks, and sync contacts to Notion.\n\nBut the only limit is your imagination.\n\nWhat would you want to do?",
   },
 ];
 
 export function defaultBlueprintSessionsForPreset(_preset: string): WorkspaceBlueprintSessionTemplate[] {
   return [
     {
-      id: "welcome-to-openwork",
-      title: "Welcome to OpenWork",
+        id: "welcome-to-tymer-studio",
+       title: "Welcome to Tymer Studio",
       messages: DEFAULT_WELCOME_BLUEPRINT_MESSAGES,
       openOnFirstLoad: true,
     },

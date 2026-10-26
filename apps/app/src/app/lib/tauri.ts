@@ -122,6 +122,7 @@ export type WorkspaceInfo = {
   openworkHostToken?: string | null;
   openworkWorkspaceId?: string | null;
   openworkWorkspaceName?: string | null;
+  icon?: SessionIcon | null;
 
   // Sandbox lifecycle metadata (desktop-managed)
   sandboxBackend?: "docker" | null;
@@ -274,6 +275,20 @@ export async function workspaceUpdateDisplayName(input: {
   return invoke<WorkspaceList>("workspace_update_display_name", {
     workspaceId: input.workspaceId,
     displayName: input.displayName ?? null,
+  });
+}
+
+export async function workspaceUpdateIcon(input: {
+  workspaceId: string;
+  iconType?: string | null;
+  iconValue?: string | null;
+  iconDataUrl?: string | null;
+}): Promise<WorkspaceList> {
+  return invoke<WorkspaceList>("workspace_update_icon", {
+    workspaceId: input.workspaceId,
+    iconType: input.iconType ?? null,
+    iconValue: input.iconValue ?? null,
+    iconDataUrl: input.iconDataUrl ?? null,
   });
 }
 

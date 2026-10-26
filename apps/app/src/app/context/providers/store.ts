@@ -615,7 +615,7 @@ export function createProvidersStore(options: CreateProvidersStoreOptions) {
     const token = settings.authToken?.trim() ?? "";
     const orgId = settings.activeOrgId?.trim() ?? "";
     if (!token || !orgId) {
-      throw new Error("Sign in to OpenWork Cloud and choose an organization first.");
+      throw new Error("Sign in to Tymer Studio Cloud and choose an organization first.");
     }
 
     try {

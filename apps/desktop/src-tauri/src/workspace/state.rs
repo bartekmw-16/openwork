@@ -64,6 +64,8 @@ pub fn openwork_state_paths(app: &tauri::AppHandle) -> Result<(PathBuf, PathBuf)
         .app_data_dir()
         .map_err(|e| format!("Failed to resolve app data dir: {e}"))?;
     let file_path = data_dir.join("openwork-workspaces.json");
+    eprintln!("[DEBUG] Using config dir: {:?}", data_dir);
+    eprintln!("[DEBUG] Config file: {:?}", file_path);
     Ok((data_dir, file_path))
 }
 

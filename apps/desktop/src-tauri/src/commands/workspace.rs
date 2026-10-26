@@ -232,6 +232,54 @@ pub fn workspace_update_display_name(
 }
 
 #[tauri::command]
+pub fn workspace_update_icon(
+    app: tauri::AppHandle,
+    workspace_id: String,
+    icon_type: Option<String>,
+    icon_value: Option<String>,
+    icon_data_url: Option<String>,
+) -> Result<WorkspaceList, String> {
+    println!("[workspace] update icon request: {workspace_id}");
+    let mut state = load_workspace_state(&app)?;
+    let id = workspace_id.trim();
+
+    if id.is_empty() {
+        return Err("workspaceId is required".to_string());
+    }
+
+    let workspace = state.workspaces.iter_mut().find(|w| w.id == id);
+    match workspace {
+        Some(entry) => {
+            match (&icon_type, &icon_value, &icon_data_url) {
+                (Some(t), Some(v), _) if t == "emoji" => {
+                    entry.icon = Some(crate::types::SessionIcon {
+                        icon_type: t.clone(),
+                        value: Some(v.clone()),
+                        data_url: None,
+                    });
+                }
+                (Some(t), _, Some(d)) if t == "image" => {
+                    entry.icon = Some(crate::types::SessionIcon {
+                        icon_type: t.clone(),
+                        value: None,
+                        data_url: Some(d.clone()),
+                    });
+                }
+                _ => {
+                    entry.icon = None;
+                }
+            }
+        }
+        None => return Err("Unknown workspaceId".to_string()),
+    }
+
+    save_workspace_state(&app, &state)?;
+    println!("[workspace] update icon complete: {id}");
+
+    Ok(build_workspace_list(state))
+}
+
+#[tauri::command]
 pub fn workspace_create(
     app: tauri::AppHandle,
     folder_path: String,
@@ -283,6 +331,7 @@ pub fn workspace_create(
         openwork_host_token: None,
         openwork_workspace_id: None,
         openwork_workspace_name: None,
+        icon: None,
         sandbox_backend: None,
         sandbox_run_id: None,
         sandbox_container_name: None,
@@ -408,6 +457,7 @@ pub fn workspace_create_remote(
         sandbox_container_name: sandbox_container_name
             .map(|value| value.trim().to_string())
             .filter(|value| !value.is_empty()),
+        icon: None,
     });
     state.selected_workspace_id = id.clone();
     save_workspace_state(&app, &state)?;
@@ -1001,6 +1051,7 @@ pub fn workspace_import_config(
         openwork_host_token: None,
         openwork_workspace_id: None,
         openwork_workspace_name: None,
+        icon: None,
         sandbox_backend: None,
         sandbox_run_id: None,
         sandbox_container_name: None,

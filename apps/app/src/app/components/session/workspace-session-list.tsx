@@ -15,7 +15,7 @@ import {
 } from "lucide-solid";
 
 import { DEFAULT_SESSION_TITLE, getDisplaySessionTitle } from "../../lib/session-title";
-import type { WorkspaceInfo } from "../../lib/tauri";
+import { workspaceUpdateIcon, type WorkspaceInfo } from "../../lib/tauri";
 import type {
   WorkspaceConnectionState,
   WorkspaceSessionGroup,
@@ -26,6 +26,7 @@ import {
   isWindowsPlatform,
 } from "../../utils";
 import { t } from "../../../i18n";
+import type { SessionIcon } from "../../types";
 
 type Props = {
   workspaceSessionGroups: WorkspaceSessionGroup[];
@@ -56,6 +57,7 @@ type Props = {
   onEditWorkspaceConnection: (workspaceId: string) => void;
   onForgetWorkspace: (workspaceId: string) => void;
   onOpenCreateWorkspace: () => void;
+  onCycleWorkspaceIcon?: (workspaceId: string, newIcon: SessionIcon | null) => void;
 };
 
 const MAX_SESSIONS_PREVIEW = 6;
@@ -80,6 +82,60 @@ const getRootSessions = (sessions: WorkspaceSessionGroup["sessions"]) => {
     const parentID = normalizeSessionParentID(session);
     return !parentID || !byID.has(parentID);
   });
+};
+
+// Group sessions by projectID for hierarchical display
+const groupSessionsByProject = (
+  sessions: WorkspaceSessionGroup["sessions"],
+): Map<string | null, SessionListItem[]> => {
+  const groups = new Map<string | null, SessionListItem[]>();
+
+  // Default project for sessions without projectID
+  const defaultProject: string | null = null;
+
+  sessions.forEach((session) => {
+    const projectId = session.projectID?.trim() || defaultProject;
+    const existing = groups.get(projectId) ?? [];
+    existing.push(session);
+    groups.set(projectId, existing);
+  });
+
+  // Sort by creation time
+  const sortedGroups = new Map<string | null, SessionListItem[]>();
+  Array.from(groups.entries())
+    .sort((a, b) => {
+      // "Default" project first
+      if (a[0] === null) return -1;
+      if (b[0] === null) return 1;
+      return (a[0] ?? "").localeCompare(b[0] ?? "");
+    })
+    .forEach(([projectId, sessionList]) => {
+      // Sort sessions by updated time
+      const sorted = sessionList.sort((a, b) => {
+        const timeA = a.time?.updated ?? a.time?.created ?? 0;
+        const timeB = b.time?.updated ?? b.time?.created ?? 0;
+        return timeB - timeA;
+      });
+      sortedGroups.set(projectId, sorted);
+    });
+
+  return sortedGroups;
+};
+
+// Project icons for different project names
+const PROJECT_ICONS: Record<string, string> = {
+  default: "📁",
+  coding: "💻",
+  writing: "✍️",
+  research: "🔬",
+  planning: "📋",
+  review: "👀",
+};
+
+const getProjectIcon = (projectId: string | null): string => {
+  if (!projectId) return PROJECT_ICONS.default;
+  const key = projectId.toLowerCase();
+  return PROJECT_ICONS[key] ?? "📂";
 };
 
 const buildSessionTreeState = (
@@ -184,6 +240,138 @@ const workspaceSwatchColor = (seed: string) => {
   return WORKSPACE_SWATCHES[Math.abs(hash) % WORKSPACE_SWATCHES.length];
 };
 
+// Default icons to cycle through when clicking
+const DEFAULT_ICONS: (SessionIcon | null)[] = [
+  null, // default color swatch
+  { type: "emoji", value: "🚀" },
+  { type: "emoji", value: "💻" },
+  { type: "emoji", value: "📁" },
+  { type: "emoji", value: "⚡" },
+  { type: "emoji", value: "🔥" },
+  { type: "emoji", value: "✨" },
+  { type: "emoji", value: "🎯" },
+  { type: "emoji", value: "💡" },
+  { type: "emoji", value: "📌" },
+  { type: "emoji", value: "⭐" },
+  { type: "emoji", value: "🎨" },
+  { type: "emoji", value: "🎬" },
+  { type: "emoji", value: "🎵" },
+  { type: "emoji", value: "🎮" },
+  { type: "emoji", value: "📷" },
+  { type: "emoji", value: "🎥" },
+  { type: "emoji", value: "💼" },
+  { type: "emoji", value: "🏠" },
+  { type: "emoji", value: "🌍" },
+  { type: "emoji", value: "🎭" },
+  { type: "emoji", value: "📚" },
+  { type: "emoji", value: "🔬" },
+  { type: "emoji", value: "💊" },
+  { type: "emoji", value: "🍕" },
+  { type: "emoji", value: "☕" },
+  { type: "emoji", value: "🌙" },
+  { type: "emoji", value: "☀️" },
+  { type: "emoji", value: "🌈" },
+  { type: "emoji", value: "❤️" },
+  { type: "emoji", value: "🎉" },
+  { type: "emoji", value: "🔒" },
+  { type: "emoji", value: "📝" },
+  { type: "emoji", value: "🗂️" },
+  { type: "emoji", value: "📊" },
+  { type: "emoji", value: "🎪" },
+  { type: "emoji", value: "🌟" },
+  { type: "emoji", value: "💎" },
+  { type: "emoji", value: "🔮" },
+  { type: "emoji", value: "🎰" },
+  { type: "emoji", value: "🏆" },
+  { type: "emoji", value: "🎯" },
+  { type: "emoji", value: "🎲" },
+  { type: "emoji", value: "🎳" },
+  { type: "emoji", value: "⚽" },
+  { type: "emoji", value: "🏀" },
+  { type: "emoji", value: "🎾" },
+  { type: "emoji", value: "🏃" },
+  { type: "emoji", value: "🚴" },
+  { type: "emoji", value: "⛷️" },
+  { type: "emoji", value: "🏊" },
+];
+
+const cycleWorkspaceIcon = (
+  currentIcon: SessionIcon | null | undefined,
+): SessionIcon | null => {
+  // Find current index
+  let currentIndex = -1;
+  if (currentIcon && currentIcon.type === "emoji" && currentIcon.value) {
+    currentIndex = DEFAULT_ICONS.findIndex(
+      (i) => i && i.type === "emoji" && i.value === currentIcon.value,
+    );
+  }
+
+  // Move to next index
+  const nextIndex = (currentIndex + 1) % DEFAULT_ICONS.length;
+  return DEFAULT_ICONS[nextIndex] ?? null;
+};
+
+const renderWorkspaceIcon = (
+  icon: SessionIcon | null | undefined,
+  workspaceId: string,
+  onCycle?: (newIcon: SessionIcon | null) => void,
+) => {
+  const handleClick = async (e: MouseEvent) => {
+    e.stopPropagation();
+    const newIcon = cycleWorkspaceIcon(icon);
+    // Call Tauri API to save
+    try {
+      const iconType = newIcon?.type ?? null;
+      const iconValue = newIcon?.type === "emoji" ? newIcon.value ?? null : null;
+      const iconDataUrl = newIcon?.type === "image" ? newIcon.dataUrl ?? null : null;
+      await workspaceUpdateIcon({
+        workspaceId,
+        iconType,
+        iconValue,
+        iconDataUrl,
+      });
+      // Update local callback
+      onCycle?.(newIcon);
+    } catch (err) {
+      console.error("Failed to save icon:", err);
+    }
+  };
+
+  if (icon && icon.type === "emoji" && icon.value) {
+    return (
+      <button
+        type="button"
+        class="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full text-lg leading-none hover:opacity-80 cursor-pointer"
+        onClick={handleClick}
+        title="Click to change icon"
+      >
+        {icon.value}
+      </button>
+    );
+  }
+  if (icon && icon.type === "image" && icon.dataUrl) {
+    return (
+      <button
+        type="button"
+        class="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full overflow-hidden hover:opacity-80 cursor-pointer"
+        onClick={handleClick}
+        title="Click to change icon"
+      >
+        <img src={icon.dataUrl} class="h-full w-full object-cover" />
+      </button>
+    );
+  }
+  return (
+    <button
+      type="button"
+      class="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full cursor-pointer hover:opacity-80"
+      style={{ "background-color": workspaceSwatchColor(workspaceId) }}
+      onClick={handleClick}
+      title="Click to change icon"
+    />
+  );
+};
+
 export default function WorkspaceSessionList(props: Props) {
   const revealLabel = () => isWindowsPlatform()
     ? t("workspace_list.reveal_explorer")
@@ -200,6 +388,17 @@ export default function WorkspaceSessionList(props: Props) {
   const [expandedSessionIds, setExpandedSessionIds] = createSignal<Set<string>>(
     new Set(),
   );
+  // Enable project grouping
+  const [showProjects, setShowProjects] = createSignal(true);
+  // Key to force re-render when workspace icon changes
+  const [workspaceRefreshKey, setWorkspaceRefreshKey] = createSignal(0);
+  
+  // Callback to handle icon changes - call this after saving
+  const handleWorkspaceIconChange = (workspaceId: string, newIcon: SessionIcon | null) => {
+    setWorkspaceRefreshKey((k) => k + 1);
+    props.onCycleWorkspaceIcon?.(workspaceId, newIcon);
+  };
+  
   let workspaceMenuRef: HTMLDivElement | undefined;
   let sessionMenuRef: HTMLDivElement | undefined;
 
@@ -561,15 +760,16 @@ export default function WorkspaceSessionList(props: Props) {
                       );
                     }}
                    >
-                     <div class="flex min-w-0 items-center gap-3.5">
-                        <div
-                          class="flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full"
-                         style={{
-                           "background-color": workspaceSwatchColor(
-                             workspace().id || workspaceLabel(workspace()),
-                           ),
-                         }}
-                       />
+<div class="flex min-w-0 items-center gap-3.5" key={workspaceRefreshKey()}>
+                        {renderWorkspaceIcon(
+                            workspace().icon,
+                            workspace().id,
+                            props.onCycleWorkspaceIcon
+                              ? (newIcon) => {
+                                  handleWorkspaceIconChange(workspace().id, newIcon);
+                                }
+                              : undefined,
+                          )}
                        <div class="min-w-0 flex-1">
                          <div class="min-w-0 truncate text-[14px] font-normal text-dls-text">
                            {workspaceLabel(workspace())}
@@ -657,6 +857,34 @@ export default function WorkspaceSessionList(props: Props) {
                       >
                         {t("workspace_list.edit_name")}
                       </button>
+                      {/* Quick icon picker */}
+                      <div class="my-1 flex flex-wrap gap-1 px-1">
+                        {DEFAULT_ICONS.filter((i) => i && i.type === "emoji").map((icon) => (
+                          <button
+                            type="button"
+                            class="flex h-6 w-6 items-center justify-center rounded text-sm hover:bg-gray-3"
+                            onClick={async () => {
+                              try {
+                                const newIcon = icon;
+                                await workspaceUpdateIcon({
+                                  workspaceId: workspace().id,
+                                  iconType: newIcon?.type ?? null,
+                                  iconValue: newIcon?.type === "emoji" ? newIcon.value ?? null : null,
+                                  iconDataUrl: null,
+                                });
+                                // Force local re-render AND call prop callback
+                                setWorkspaceRefreshKey((k) => k + 1);
+                                props.onCycleWorkspaceIcon?.(workspace().id, newIcon ?? null);
+                                setWorkspaceMenuId(null);
+                              } catch (err) {
+                                console.error("Failed to set icon:", err);
+                              }
+                            }}
+                          >
+                            {icon?.value}
+                          </button>
+                        ))}
+                      </div>
                       <button
                         type="button"
                         class="w-full rounded-xl px-3 py-2 text-left text-sm text-gray-11 transition-colors hover:bg-gray-2"
@@ -679,6 +907,24 @@ export default function WorkspaceSessionList(props: Props) {
                           {revealLabel()}
                         </button>
                       </Show>
+                      {/* Create Project button */}
+                      <button
+                        type="button"
+                        class="w-full rounded-xl px-3 py-2 text-left text-sm text-blue-11 transition-colors hover:bg-blue-1/40"
+                        onClick={() => {
+                          // Trigger project creation - for now, just show a prompt
+                          const projectName = prompt("Enter project name:");
+                          if (projectName && projectName.trim()) {
+                            // Create the project by renaming to include project
+                            // The actual project creation would be handled by a new command
+                            console.log("Create project:", projectName.trim());
+                            // TODO: Call Tauri command to create project
+                          }
+                          setWorkspaceMenuId(null);
+                        }}
+                      >
+                        + Create Project
+                      </button>
                       <Show when={workspace().workspaceType === "remote"}>
                         <Show when={canRecover()}>
                           <button
@@ -763,8 +1009,58 @@ export default function WorkspaceSessionList(props: Props) {
                                   </Show>
                                 }
                               >
-                                <For
-                                  each={previewSessions(
+                                {/* Group sessions by project when showProjects is enabled */}
+                                <Show when={showProjects()}>
+                                  {(() => {
+                                    const projectGroups = groupSessionsByProject(group.sessions);
+                                    return (
+                                      <div class="space-y-3">
+                                        <For each={Array.from(projectGroups.entries())}>
+                                          {([projectId, projectSessions]) => (
+                                            <div>
+                                              {/* Project header */}
+                                              <Show
+                                                when={projectId !== null}
+                                                fallback={
+                                                  <div class="mb-1 flex items-center gap-1.5 px-1 py-0.5 text-xs font-medium text-gray-9">
+                                                    {getProjectIcon(null)}{" "}
+                                                    Current Session
+                                                  </div>
+                                                }
+                                              >
+                                                <div class="mb-1 flex items-center gap-1.5 px-1 py-0.5 text-xs font-medium text-gray-9">
+                                                  {getProjectIcon(projectId)}{" "}
+                                                  {projectId}
+                                                </div>
+                                              </Show>
+                                              {/* Sessions in project */}
+                                              <For
+                                                each={projectSessions.slice(0, MAX_SESSIONS_PREVIEW).map(
+                                                  (s) => ({
+                                                    session: s,
+                                                    depth: 0,
+                                                  }),
+                                                )}
+                                              >
+                                                {(row) =>
+                                                  renderSessionRow(
+                                                    workspace().id,
+                                                    row,
+                                                    tree,
+                                                    forcedExpandedSessionIds,
+                                                  )
+                                                }
+                                              </For>
+                                            </div>
+                                          )}
+                                        </For>
+                                      </div>
+                                    );
+                                  })()}
+                                </Show>
+                                <Show when={!showProjects()}>
+                                  <For
+                                    each={previewSessions(
                                     workspace().id,
                                     group.sessions,
                                     tree,
@@ -777,10 +1073,11 @@ export default function WorkspaceSessionList(props: Props) {
                                       row,
                                       tree,
                                       forcedExpandedSessionIds,
-                                    )}
-                                </For>
-
-                                <Show
+)}
+                                  </For>
+                                </Show>
+ 
+                                 <Show
                                   when={
                                     group.sessions.length === 0 &&
                                     group.status === "ready"

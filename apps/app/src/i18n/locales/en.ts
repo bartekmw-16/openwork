@@ -1,6 +1,6 @@
 /**
  * English translations
- * Professional terms (Skills, Plugins, Commands, Sessions, OpenCode, OpenPackage, OpenWork) are NOT translated
+ * Professional terms (Skills, Plugins, Commands, Sessions, OpenCode, OpenPackage, Tymer Studio) are NOT translated
  */
 
 export default {
@@ -33,7 +33,7 @@ export default {
   "dashboard.busy": "Busy",
   "dashboard.hero_title": "What should we do today?",
   "dashboard.hero_description":
-    "Describe an outcome. OpenWork will run it and keep an audit trail.",
+    "Describe an outcome. Tymer Studio will run it and keep an audit trail.",
   "dashboard.quick_start_commands": "Quick Start Commands",
   "dashboard.view_all": "View all",
   "dashboard.no_commands":
@@ -82,7 +82,7 @@ export default {
     "Open the workspace setup flow, then add this skill after the new workspace is ready.",
   "share_skill_destination.connect_remote": "Connect remote workspace",
   "share_skill_destination.connect_remote_desc":
-    "Attach an OpenWork host, then choose it from the list to import this skill.",
+    "Attach an Tymer Studio host, then choose it from the list to import this skill.",
   "dashboard.sandbox_get_ready_title": "Sandboxes need Docker",
   "dashboard.sandbox_get_ready_action": "Get your system ready",
   "dashboard.sandbox_get_ready_desc":
@@ -90,28 +90,28 @@ export default {
   "dashboard.sandbox_checking_docker": "Checking Docker...",
   "dashboard.create_remote_workspace_title": "Add Remote Workspace",
   "dashboard.create_remote_workspace_subtitle":
-    "Save an OpenWork server as a workspace.",
+    "Save an Tymer Studio server as a workspace.",
   "dashboard.create_remote_workspace_confirm": "Add Workspace",
   "dashboard.edit_remote_workspace_title": "Edit Remote Connection",
   "dashboard.edit_remote_workspace_subtitle":
-    "Update the OpenWork server details for this workspace.",
+    "Update the Tymer Studio server details for this workspace.",
   "dashboard.edit_remote_workspace_confirm": "Save connection",
   "dashboard.remote_workspace_title": "Remote workspace",
   "dashboard.remote_workspace_hint":
-    "Track an OpenWork server and reconnect anytime.",
-  "dashboard.remote_base_url_label": "OpenWork server URL",
+    "Track an Tymer Studio server and reconnect anytime.",
+  "dashboard.remote_base_url_label": "Tymer Studio server URL",
   "dashboard.remote_base_url_placeholder": "http://127.0.0.1:<port>",
   "dashboard.remote_base_url_required": "Add a server URL to continue.",
-  "dashboard.openwork_host_label": "OpenWork server URL",
+  "dashboard.openwork_host_label": "Tymer Studio server URL",
   "dashboard.openwork_host_placeholder": "https://your-server.openwork.app",
-  "dashboard.openwork_host_hint": "Use the URL shared by your OpenWork server.",
+  "dashboard.openwork_host_hint": "Use the URL shared by your Tymer Studio server.",
   "dashboard.openwork_host_token_label": "Collaborator or owner token",
   "dashboard.openwork_host_token_placeholder": "Paste your token",
   "dashboard.openwork_host_token_hint":
     "Optional. Paste a collaborator token for routine access or an owner token when this client must answer permission prompts.",
-  "dashboard.remote_mode_openwork_alpha": "OpenWork server",
+  "dashboard.remote_mode_openwork_alpha": "Tymer Studio server",
   "dashboard.remote_mode_direct": "Direct (legacy)",
-  "dashboard.remote_connection_openwork": "OpenWork",
+  "dashboard.remote_connection_openwork": "Tymer Studio",
   "dashboard.remote_connection_direct": "Direct",
   "dashboard.remote_directory_label": "Workspace directory (optional)",
   "dashboard.remote_directory_placeholder": "/home/team/project",
@@ -198,7 +198,7 @@ export default {
   "session.standard": "Standard",
   "session.try_notion_prompt": "Try it now: set up my CRM in Notion",
   "session.insert_prompt": "Insert prompt",
-  "session.placeholder": "Ask OpenWork...",
+  "session.placeholder": "Ask Tymer Studio...",
   "session.run": "Run",
   "session.permission_required": "Permission Required",
   "session.permission_description":
@@ -297,7 +297,7 @@ export default {
     "No skills detected in `.opencode/skills`, `.claude/skills`, or `~/.agents/skills`.",
   "skills.desktop_required": "Skill management requires the desktop app.",
   "skills.host_only_error":
-    "Skill management requires a local workspace or connected OpenWork server.",
+    "Skill management requires a local workspace or connected Tymer Studio server.",
   "skills.install_skill_creator": "Install skill creator",
   "skills.install_skill_creator_hint":
     "This skill allows you to create other skills from within the chat.",
@@ -318,13 +318,13 @@ export default {
   "skills.uninstalled": "Skill removed.",
   "skills.share_title": "Share skill",
   "skills.share_chooser_subtitle":
-    "Save to your OpenWork Cloud organization or publish a public install link.",
+    "Save to your Tymer Studio Cloud organization or publish a public install link.",
   "skills.share_subtitle_public":
     "Anyone with the link can install this skill.",
   "skills.share_subtitle_team": "Stored in your organization for teammates.",
   "skills.share_option_team_title": "Share with team",
   "skills.share_option_team_desc":
-    "Add this skill to your active OpenWork Cloud organization.",
+    "Add this skill to your active Tymer Studio Cloud organization.",
   "skills.share_option_public_title": "Public link",
   "skills.share_option_public_desc":
     "Create a link anyone can use to install this skill.",
@@ -343,7 +343,7 @@ export default {
   "skills.share_team_hubs_loading": "Loading hubs…",
   "skills.share_team_sign_in": "Sign in to share with team",
   "skills.share_team_sign_in_hint":
-    "OpenWork Cloud opens in your browser. Return here after signing in.",
+    "Tymer Studio Cloud opens in your browser. Return here after signing in.",
   "skills.share_team_save": "Save to team",
   "skills.share_team_saving": "Saving…",
   "skills.share_team_success":
@@ -359,7 +359,7 @@ export default {
     "Add enrichment workflows for contacts, pipelines, and follow-ups.",
   "skills.notion_crm_card_description":
     "Enrich Notion CRM data with ready-made skills.",
-  "skills.connect_host_to_load": "Connect an OpenWork server to load skills.",
+  "skills.connect_host_to_load": "Connect an Tymer Studio server to load skills.",
   "skills.pick_workspace_first": "Pick a workspace folder first.",
   "skills.no_skills_found": "No skills found yet.",
   "skills.installed_description": "Skills available in this workspace.",
@@ -401,11 +401,11 @@ export default {
   "skills.catalog_search_placeholder": "Search installed, team, and hub skills",
   "skills.cloud_section_title": "From your organization",
   "skills.cloud_section_subtitle":
-    "Skills shared with you through OpenWork Cloud — including team skill hubs you can access.",
+    "Skills shared with you through Tymer Studio Cloud — including team skill hubs you can access.",
   "skills.cloud_refresh": "Refresh team skills",
-  "skills.cloud_org_fallback": "OpenWork Cloud",
+  "skills.cloud_org_fallback": "Tymer Studio Cloud",
   "skills.cloud_sign_in_hint":
-    "Sign in to OpenWork Cloud to browse team and org skills.",
+    "Sign in to Tymer Studio Cloud to browse team and org skills.",
   "skills.cloud_sign_in": "Sign in to Cloud",
   "skills.cloud_choose_org_hint":
     "Choose an organization in Settings → Cloud to load team skills.",
@@ -415,7 +415,7 @@ export default {
   "skills.cloud_org_load_failed": "Failed to load organization skills.",
   "skills.cloud_no_search_matches": "No skills match that search.",
   "skills.cloud_install_need_server":
-    "Connect to an OpenWork server with skills write access to install team skills on this worker.",
+    "Connect to an Tymer Studio server with skills write access to install team skills on this worker.",
   "skills.cloud_installed": "Installed {name} on this worker.",
   "skills.cloud_installing": "Installing {title}…",
   "skills.cloud_installing_short": "Installing",
@@ -456,7 +456,7 @@ export default {
   // ==================== Apps (MCP) ====================
   "mcp.apps_title": "Apps",
   "mcp.apps_subtitle":
-    "Connect your favorite tools so OpenWork can use them on your behalf.",
+    "Connect your favorite tools so Tymer Studio can use them on your behalf.",
   "mcp.app_connected": "app connected",
   "mcp.apps_connected": "apps connected",
   "mcp.title": "Apps",
@@ -466,7 +466,7 @@ export default {
   "mcp.alpha_banner_help":
     "If you want to help, open a PR and include a short video showing the sign-in flow works end to end.",
   "mcp.mcps_title": "Apps",
-  "mcp.connect_mcp_hint": "Connect apps to expand what OpenWork can do.",
+  "mcp.connect_mcp_hint": "Connect apps to expand what Tymer Studio can do.",
   "mcp.finish_setup": "Almost there",
   "mcp.finish_setup_hint": "Tap Activate to finish connecting your app.",
   "mcp.activate_button": "Activate",
@@ -519,7 +519,7 @@ export default {
   "mcp.hide_advanced": "Hide advanced settings",
   "mcp.show_advanced": "Show advanced settings",
   "mcp.mcps_label": "Apps",
-  "mcp.mcps_description": "Connect apps to expand what OpenWork can do.",
+  "mcp.mcps_description": "Connect apps to expand what Tymer Studio can do.",
   "mcp.configured": "configured",
   "mcp.updated": "Synced",
   "mcp.reload_required": "Activation needed",
@@ -622,7 +622,7 @@ export default {
     "Enter a URL for remote or a command for local servers.",
   "mcp.control_chrome_setup_title": "Set up Control Chrome",
   "mcp.control_chrome_setup_subtitle":
-    "Turn on Chrome access, then choose whether OpenWork should use its own clean profile or attach to the Chrome you already use.",
+    "Turn on Chrome access, then choose whether Tymer Studio should use its own clean profile or attach to the Chrome you already use.",
   "mcp.control_chrome_browser_title": "1. Turn on Chrome access",
   "mcp.control_chrome_browser_hint": "In Chrome 144 or newer, do this first:",
   "mcp.control_chrome_browser_step_one":
@@ -633,14 +633,14 @@ export default {
   "mcp.control_chrome_docs": "Official MCP guide",
   "mcp.control_chrome_profile_title": "2. Choose which Chrome to use",
   "mcp.control_chrome_profile_hint":
-    "Control Chrome normally opens a separate Chrome profile. Turn this on if you want OpenWork to reuse the Chrome window you already have open.",
+    "Control Chrome normally opens a separate Chrome profile. Turn this on if you want Tymer Studio to reuse the Chrome window you already have open.",
   "mcp.control_chrome_toggle_label": "Use my existing Chrome profile",
   "mcp.control_chrome_toggle_hint":
-    "When this is on, OpenWork adds --autoConnect so the MCP attaches to a Chrome instance you already started.",
+    "When this is on, Tymer Studio adds --autoConnect so the MCP attaches to a Chrome instance you already started.",
   "mcp.control_chrome_toggle_on":
-    "OpenWork will reuse your current tabs, cookies, and sign-ins.",
+    "Tymer Studio will reuse your current tabs, cookies, and sign-ins.",
   "mcp.control_chrome_toggle_off":
-    "OpenWork will launch a separate Chrome profile just for automation.",
+    "Tymer Studio will launch a separate Chrome profile just for automation.",
   "mcp.control_chrome_connect": "Add Control Chrome",
   "mcp.control_chrome_save": "Save settings",
   "mcp.control_chrome_edit": "Edit settings",
@@ -652,7 +652,7 @@ export default {
     "Removes stored OAuth credentials. You'll need to sign in again.",
   "mcp.login_action": "Sign in",
   "mcp.login_hint": "Connect your account to finish setting up this app.",
-  "mcp.login_unavailable": "This app does not support sign-in from OpenWork.",
+  "mcp.login_unavailable": "This app does not support sign-in from Tymer Studio.",
   "mcp.logout_modal_title": "Log out of this app?",
   "mcp.logout_modal_message":
     "This will remove stored OAuth credentials for {server}. You'll need to sign in again to use this app.",
@@ -684,11 +684,11 @@ export default {
   "mcp.auth.reload_before_oauth":
     "Reload the engine to finish setting up this MCP before starting OAuth.",
   "mcp.auth.reload_notice":
-    "For this to take effect, OpenWork needs to refresh the worker service. This can interrupt a running session.",
+    "For this to take effect, Tymer Studio needs to refresh the worker service. This can interrupt a running session.",
   "mcp.auth.reload_blocked":
     "Reload is paused while a session is running. Stop the run to finish setup.",
   "mcp.auth.reload_remote_confirm":
-    "For this to take effect, OpenWork needs to refresh the worker service. This might stop your running session. Continue?",
+    "For this to take effect, Tymer Studio needs to refresh the worker service. This might stop your running session. Continue?",
   "mcp.auth.reload_needed":
     "Finish setup by reloading the engine, then try connecting again.",
   "mcp.auth.manual_finish_title": "Remote server?",
@@ -705,7 +705,7 @@ export default {
   "mcp.auth.step1_title": "Opening your browser",
   "mcp.auth.step1_description":
     "We'll launch {server}'s sign-in flow automatically.",
-  "mcp.auth.step2_title": "Authorize OpenWork",
+  "mcp.auth.step2_title": "Authorize Tymer Studio",
   "mcp.auth.step2_description": "Sign in and approve access when prompted.",
   "mcp.auth.step3_title": "Return here when you're done",
   "mcp.auth.step3_description":
@@ -777,7 +777,7 @@ export default {
   "settings.model_reasoning": "Reasoning",
   "settings.done": "Done",
   "settings.updates": "Updates",
-  "settings.updates_description": "Keep OpenWork up to date.",
+  "settings.updates_description": "Keep Tymer Studio up to date.",
   "settings.automatic_checks": "Automatic checks",
   "settings.automatic_checks_description": "Once per day (quiet)",
   "settings.update_checking": "Checking...",
@@ -802,24 +802,24 @@ export default {
     "This clears your saved preference and shows mode selection on next launch.",
   "settings.advanced": "Advanced",
   "settings.advanced_description":
-    "Reset OpenWork local state to retest onboarding.",
+    "Reset Tymer Studio local state to retest onboarding.",
   "settings.reset_onboarding": "Reset onboarding",
   "settings.reset_onboarding_description":
-    "Clears OpenWork preferences and restarts the app.",
+    "Clears Tymer Studio preferences and restarts the app.",
   "settings.reset_app_data": "Reset app data",
   "settings.reset_app_data_description":
-    "More aggressive. Clears OpenWork cache + app data.",
+    "More aggressive. Clears Tymer Studio cache + app data.",
   "settings.reset": "Reset",
   "settings.requires_typing": "Requires typing",
   "settings.will_restart": "and will restart the app.",
   "settings.reset_onboarding_title": "Reset onboarding",
   "settings.reset_app_data_title": "Reset app data",
   "settings.reset_confirmation_hint":
-    'Type <span class="font-mono">RESET</span> to confirm. OpenWork will restart.',
+    'Type <span class="font-mono">RESET</span> to confirm. Tymer Studio will restart.',
   "settings.reset_onboarding_warning":
-    "Clears OpenWork local preferences and workspace onboarding markers.",
+    "Clears Tymer Studio local preferences and workspace onboarding markers.",
   "settings.reset_app_data_warning":
-    "Clears OpenWork cache and app data on this device.",
+    "Clears Tymer Studio cache and app data on this device.",
   "settings.reset_stop_active_runs": "Stop active runs before resetting.",
   "settings.reset_confirmation_label": "Confirmation",
   "settings.reset_confirmation_placeholder": "Type RESET",
@@ -870,7 +870,7 @@ export default {
   "settings.theme_system_hint":
     "System mode follows your OS preference automatically.",
   "settings.updates_title": "Updates",
-  "settings.updates_hint": "Keep OpenWork up to date.",
+  "settings.updates_hint": "Keep Tymer Studio up to date.",
   "settings.automatic_checks_label": "Automatic checks",
   "settings.automatic_checks_hint": "Once per day (quiet)",
   "settings.last_checked_time": "Last checked {time}",
@@ -885,13 +885,13 @@ export default {
   "settings.reset_startup_hint":
     "This clears your saved preference and shows mode selection on next launch.",
   "settings.advanced_title": "Advanced",
-  "settings.advanced_hint": "Reset OpenWork local state to retest onboarding.",
+  "settings.advanced_hint": "Reset Tymer Studio local state to retest onboarding.",
   "settings.reset_onboarding_label": "Reset onboarding",
   "settings.reset_onboarding_hint":
-    "Clears OpenWork preferences and restarts the app.",
+    "Clears Tymer Studio preferences and restarts the app.",
   "settings.reset_app_data_label": "Reset app data",
   "settings.reset_app_data_hint":
-    "More aggressive. Clears OpenWork cache + app data.",
+    "More aggressive. Clears Tymer Studio cache + app data.",
   "settings.reset_requires_hint":
     "Requires typing RESET and will restart the app.",
   "settings.developer_title": "Developer",
@@ -924,15 +924,15 @@ export default {
     "Waiting for active tasks to complete before reloading.",
 
   // ==================== Onboarding ====================
-  "onboarding.starting_host": "Starting OpenWork server...",
-  "onboarding.searching_host": "Connecting to OpenWork server...",
+  "onboarding.starting_host": "Starting Tymer Studio server...",
+  "onboarding.searching_host": "Connecting to Tymer Studio server...",
   "onboarding.getting_ready": "Getting everything ready",
   "onboarding.verifying": "Verifying secure handshake",
   "onboarding.create_first_workspace": "Create your first workspace",
   "onboarding.create_workspace": "Create a workspace",
   "onboarding.workspace_description":
     "Choose a folder and preset to set up your workspace.",
-  "onboarding.start": "Start OpenWork",
+  "onboarding.start": "Start Tymer Studio",
   "onboarding.back": "Back",
   "onboarding.advanced_settings": "Advanced settings",
   "onboarding.opencode_engine": "OpenCode engine",
@@ -944,7 +944,7 @@ export default {
   "onboarding.cli_ready": "OpenCode CLI ready.",
   "onboarding.cli_version": "OpenCode {version}",
   "onboarding.windows_install_instruction":
-    "Install OpenCode for Windows, then restart OpenWork. Ensure opencode.exe is on PATH.",
+    "Install OpenCode for Windows, then restart Tymer Studio. Ensure opencode.exe is on PATH.",
   "onboarding.install_instruction":
     "Install OpenCode to enable the local server (no terminal required).",
   "onboarding.install": "Install OpenCode",
@@ -979,7 +979,7 @@ export default {
   "onboarding.cli_version_installed": "Installed",
   "onboarding.cli_recheck": "Re-check",
   "onboarding.cli_install_commands":
-    "Install OpenCode with one of the commands below, then restart OpenWork.",
+    "Install OpenCode with one of the commands below, then restart Tymer Studio.",
   "onboarding.show_search_notes": "Show search notes",
   "onboarding.last_checked": "Last checked {time}",
   "onboarding.server_url_placeholder": "http://localhost:8088",
@@ -991,30 +991,30 @@ export default {
   "onboarding.directory": "Directory (optional)",
   "onboarding.directory_hint": "Use if your server runs multiple workers.",
   "onboarding.connect": "Connect",
-  "onboarding.remote_workspace_title": "Connect to OpenWork server",
+  "onboarding.remote_workspace_title": "Connect to Tymer Studio server",
   "onboarding.remote_workspace_description":
-    "Connect to an OpenWork server to access a workspace from anywhere.",
+    "Connect to an Tymer Studio server to access a workspace from anywhere.",
   "onboarding.remote_workspace_action": "Connect",
   "onboarding.remote_workspace_card_title": "Connect a remote workspace",
   "onboarding.remote_workspace_card_description":
-    "Connect to an OpenWork server to access a shared workspace.",
-  "onboarding.advanced_openwork_host": "OpenWork server",
+    "Connect to an Tymer Studio server to access a shared workspace.",
+  "onboarding.advanced_openwork_host": "Tymer Studio server",
   "onboarding.advanced_openwork_hint":
     "Use a server URL and access token for shared access.",
   "onboarding.advanced_opencode_direct": "Advanced: OpenCode direct",
   "onboarding.advanced_opencode_hint":
     "Connect straight to an OpenCode engine when no server is available.",
-  "onboarding.welcome_title": "How would you like to run OpenWork today?",
+  "onboarding.welcome_title": "How would you like to run Tymer Studio today?",
   "onboarding.run_local": "Run locally",
   "onboarding.run_local_description":
-    "OpenWork runs OpenCode locally and keeps your work private.",
+    "Tymer Studio runs OpenCode locally and keeps your work private.",
   "onboarding.engine_running": "Engine already running",
   "onboarding.attach_description":
     "Attach to the existing session on this device.",
   "onboarding.attach": "Attach",
   "onboarding.remember_choice": "Remember my choice for next time",
   "onboarding.client_mode": "Connect as a Client (Remote Pairing)",
-  "onboarding.default_workspace_path": "~/OpenWork/Worker",
+  "onboarding.default_workspace_path": "~/Tymer Studio/Worker",
   "onboarding.authorize_folder": "Authorize folder",
   "onboarding.choose_workspace_folder": "Choose workspace folder",
 
@@ -1114,51 +1114,51 @@ export default {
     "Failed to restart the local worker with the updated sharing setting.",
   "app.error_remote_access": "Failed to update remote access.",
   "app.error_deep_link_unrecognized":
-    "That link is not a recognized OpenWork deep link or share URL.",
-  "app.deep_link_auth_queued": "Queued the Cloud auth deep link for OpenWork.",
+    "That link is not a recognized Tymer Studio deep link or share URL.",
+  "app.deep_link_auth_queued": "Queued the Cloud auth deep link for Tymer Studio.",
   "app.deep_link_remote_queued":
-    "Queued remote worker link. OpenWork should move into the connect flow.",
+    "Queued remote worker link. Tymer Studio should move into the connect flow.",
   "app.error_desktop_signin":
-    "Desktop sign-in completed, but OpenWork Cloud did not return a session token.",
-  "app.error_cloud_signin": "Failed to complete OpenWork Cloud sign-in.",
+    "Desktop sign-in completed, but Tymer Studio Cloud did not return a session token.",
+  "app.error_cloud_signin": "Failed to complete Tymer Studio Cloud sign-in.",
   "app.error_pick_local_folder":
     "Pick a local worker folder before restarting the local server.",
   "app.error_connect_first":
     "Connect to this worker before applying runtime changes.",
   "app.error_runtime_changes": "Failed to apply runtime changes.",
   "app.reset_config_ok":
-    "Reset app config defaults. Restart OpenWork if any stale settings remain.",
+    "Reset app config defaults. Restart Tymer Studio if any stale settings remain.",
   "app.error_reset_config": "Failed to reset app config defaults.",
   "app.model_behavior_title": "Model behavior",
   "app.model_behavior_desc":
     "Choose the model first to see provider-specific behavior controls.",
   "app.error_update_opencode_json": "Failed to update opencode.json",
   "app.error_auto_compact_scope":
-    "Auto context compaction can only be changed for a local workspace or a writable OpenWork server workspace.",
+    "Auto context compaction can only be changed for a local workspace or a writable Tymer Studio server workspace.",
   "app.skills_hint_disconnected":
-    "OpenWork server unavailable. Add the server URL/token in Advanced to manage skills.",
+    "Tymer Studio server unavailable. Add the server URL/token in Advanced to manage skills.",
   "app.skills_hint_limited":
-    "OpenWork server needs a host token to install/update skills. Add it in Advanced and reconnect.",
+    "Tymer Studio server needs a host token to install/update skills. Add it in Advanced and reconnect.",
   "app.skills_hint_readonly":
-    "OpenWork server is read-only for skills. Add a host token in Advanced to enable installs.",
+    "Tymer Studio server is read-only for skills. Add a host token in Advanced to enable installs.",
   "app.plugins_hint_disconnected":
-    "OpenWork server unavailable. Plugins are read-only.",
-  "app.plugins_hint_limited": "OpenWork server needs a token to edit plugins.",
-  "app.plugins_hint_readonly": "OpenWork server is read-only for plugins.",
+    "Tymer Studio server unavailable. Plugins are read-only.",
+  "app.plugins_hint_limited": "Tymer Studio server needs a token to edit plugins.",
+  "app.plugins_hint_readonly": "Tymer Studio server is read-only for plugins.",
   "app.compact_command_desc": "Summarize this session to reduce context size.",
   "app.error_connection_failed_url":
     "Connection failed. Check the URL and token.",
   "app.error_connection_failed": "Connection failed",
 
   // ==================== Status bar labels ====================
-  "status.openwork_ready": "OpenWork Ready",
+  "status.openwork_ready": "Tymer Studio Ready",
   "status.limited_mode": "Limited Mode",
   "status.disconnected_label": "Disconnected",
   "status.ready_for_tasks": "Ready for new tasks",
   "status.developer_mode": "Developer mode",
   "status.providers_connected": "{count} provider{plural} connected",
   "status.mcp_connected": "{count} MCP connected",
-  "status.limited_hint": "Reconnect to restore full OpenWork features",
+  "status.limited_hint": "Reconnect to restore full Tymer Studio features",
   "status.limited_mcp_hint":
     "{count} MCP connected · reconnect for full features",
   "status.disconnected_hint": "Open settings to reconnect",
@@ -1322,18 +1322,18 @@ export default {
   "common.unknown": "Unknown",
 
   // ==================== Den settings panel (cont.) ====================
-  "den.cloud_section_title": "OpenWork Cloud",
+  "den.cloud_section_title": "Tymer Studio Cloud",
   "den.cloud_section_desc":
     "Sign in, pick an org, and open Cloud workers or team templates.",
   "den.cloud_sleep_hint":
-    "Sign in to OpenWork Cloud to keep your tasks alive even when your computer sleeps.",
+    "Sign in to Tymer Studio Cloud to keep your tasks alive even when your computer sleeps.",
   "den.cloud_control_plane_url_label": "Cloud control plane URL",
   "den.cloud_control_plane_url_hint":
     "Developer mode only. Use this to target a local or self-hosted Cloud control plane. Changing it signs you out so the app can re-hydrate against the new control plane.",
   "den.cloud_control_plane_reset": "Reset",
   "den.cloud_control_plane_save": "Save URL",
   "den.cloud_control_plane_open": "Open in browser",
-  "den.signin_title": "Sign in to OpenWork Cloud",
+  "den.signin_title": "Sign in to Tymer Studio Cloud",
   "den.signin_button": "Sign in",
   "den.create_account": "Create account",
   "den.hide_signin_code": "Hide sign-in code",
@@ -1341,13 +1341,13 @@ export default {
   "den.signin_link_label": "Sign-in link or one-time code",
   "den.signin_link_placeholder": "openwork://den-auth?... or pasted code",
   "den.signin_link_hint":
-    "If your browser doesn't bounce back into OpenWork automatically, paste the sign-in link or one-time code from OpenWork Cloud here.",
+    "If your browser doesn't bounce back into Tymer Studio automatically, paste the sign-in link or one-time code from Tymer Studio Cloud here.",
   "den.finishing": "Finishing...",
   "den.finish_signin": "Finish sign-in",
   "den.signin_code_note":
     "Accepts an openwork://den-auth link or the raw one-time grant.",
   "den.auto_reconnect_hint":
-    "Finish auth in your browser and OpenWork will reconnect here automatically.",
+    "Finish auth in your browser and Tymer Studio will reconnect here automatically.",
   "den.cloud_account_title": "Cloud account",
   "den.cloud_account_hint": "Manage your connected account and organization.",
   "den.signing_out": "Signing out...",
@@ -1361,7 +1361,7 @@ export default {
   "den.signed_out": "Signed out",
   "den.cloud_workers_title": "Cloud workers",
   "den.cloud_workers_hint":
-    "Open workers directly into OpenWork using the same remote-connect flow the app already uses elsewhere.",
+    "Open workers directly into Tymer Studio using the same remote-connect flow the app already uses elsewhere.",
   "den.refresh": "Refresh",
   "den.no_cloud_workers":
     "No cloud workers are visible for this org yet. Create one in Cloud, then refresh this tab.",
@@ -1387,35 +1387,35 @@ export default {
   "den.error_load_templates": "Failed to load team templates.",
   "den.error_no_session": "No active Cloud session found.",
   "den.error_paste_valid_code":
-    "Paste a valid OpenWork sign-in link or one-time sign-in code.",
-  "den.error_signin_failed": "Failed to complete OpenWork Cloud sign-in.",
+    "Paste a valid Tymer Studio sign-in link or one-time sign-in code.",
+  "den.error_signin_failed": "Failed to complete Tymer Studio Cloud sign-in.",
   "den.error_no_token":
-    "Desktop sign-in completed, but OpenWork Cloud did not return a session token.",
+    "Desktop sign-in completed, but Tymer Studio Cloud did not return a session token.",
   "den.status_browser_signin":
-    "Finish signing in in your browser to connect OpenWork.",
+    "Finish signing in in your browser to connect Tymer Studio.",
   "den.status_browser_signup":
-    "Finish account creation in your browser to connect OpenWork.",
-  "den.status_cloud_signin_done": "Connected OpenWork Cloud.",
+    "Finish account creation in your browser to connect Tymer Studio.",
+  "den.status_cloud_signin_done": "Connected Tymer Studio Cloud.",
   "den.status_base_url_updated":
     "Updated the Cloud control plane URL. Sign in again to continue.",
   "den.status_signed_out":
-    "Signed out and cleared your OpenWork Cloud session on this device.",
+    "Signed out and cleared your Tymer Studio Cloud session on this device.",
   "den.status_signed_in_as": "Signed in as {email}.",
-  "den.status_cloud_signed_in_as": "Connected OpenWork Cloud as {email}.",
+  "den.status_cloud_signed_in_as": "Connected Tymer Studio Cloud as {email}.",
   "den.status_loaded_orgs": "Loaded {count} org{plural}.",
   "den.status_loaded_workers": "Loaded {count} worker{plural} for {name}.",
   "den.status_no_workers": "No workers found for {name}.",
   "den.status_loaded_templates": "Loaded {count} template{plural} for {name}.",
   "den.status_no_templates": "No team templates found for {name}.",
-  "den.status_opened_worker": "Opened {name} in OpenWork.",
+  "den.status_opened_worker": "Opened {name} in Tymer Studio.",
   "den.status_opened_template": "Opened {name} from {org}.",
   "den.status_opened_template_fallback": "Opened {name} from team templates.",
-  "den.signing_in": "Finishing OpenWork Cloud sign-in...",
+  "den.signing_in": "Finishing Tymer Studio Cloud sign-in...",
   "den.org_switched": "Switched to {name}.",
   "den.org_owner_suffix": "(Owner)",
   "den.org_member_suffix": "(Member)",
   "den.worker_provider_label": "{provider} worker",
-  "den.error_open_worker": "Failed to open {name} in OpenWork.",
+  "den.error_open_worker": "Failed to open {name} in Tymer Studio.",
   "den.error_open_worker_fallback": "Failed to open {name}.",
   "den.error_open_template": "Failed to open {name}.",
 
@@ -1431,17 +1431,17 @@ export default {
     "Create a workspace on this device and optionally start from a team template.",
   "dashboard.create_remote_custom_title": "Connect custom remote",
   "dashboard.create_remote_custom_subtitle":
-    "Attach to a self-hosted OpenWork worker.",
+    "Attach to a self-hosted Tymer Studio worker.",
   "dashboard.create_shared_title": "Shared workspaces",
   "dashboard.create_shared_subtitle_signed_in":
     "Browse cloud workers shared with your organization and connect in one step.",
   "dashboard.create_shared_subtitle_signed_out":
-    "Sign in to OpenWork Cloud to access workers shared with your organization.",
+    "Sign in to Tymer Studio Cloud to access workers shared with your organization.",
   // Chooser cards
   "dashboard.chooser_local_desc":
     "Create a workspace on this device and optionally start from a team template.",
   "dashboard.chooser_remote_desc":
-    "Attach to a self-hosted OpenWork worker using a URL and access token.",
+    "Attach to a self-hosted Tymer Studio worker using a URL and access token.",
   "dashboard.chooser_shared_desc":
     "Browse cloud workers shared with your organization and connect in one step.",
   // Local body
@@ -1459,16 +1459,16 @@ export default {
   // Remote body
   "dashboard.remote_server_details_title": "Remote server details",
   "dashboard.remote_server_details_hint":
-    "Attach to a self-hosted OpenWork worker.",
+    "Attach to a self-hosted Tymer Studio worker.",
   "dashboard.worker_url_label": "Worker URL",
   "dashboard.worker_url_hint":
-    "Paste the URL for the OpenWork worker you want to connect to.",
+    "Paste the URL for the Tymer Studio worker you want to connect to.",
   "dashboard.access_token_optional_hint":
     "Add a token only if the worker requires one.",
   "dashboard.display_name_label": "Display name",
   "dashboard.display_name_optional": "(optional)",
   // Cloud sign-in screen
-  "dashboard.cloud_signin_title": "Sign in to OpenWork Cloud",
+  "dashboard.cloud_signin_title": "Sign in to Tymer Studio Cloud",
   "dashboard.cloud_signin_hint":
     "Access remote workers shared with your organization.",
   "dashboard.cloud_signin_button": "Continue with Cloud",
@@ -1525,7 +1525,7 @@ export default {
   "den_settings.sign_in": "Sign in",
   "den_settings.sign_out": "Sign out",
   "den_settings.sign_in_hint":
-    "Sign in to OpenWork Cloud to access shared workspaces and team features.",
+    "Sign in to Tymer Studio Cloud to access shared workspaces and team features.",
   "den_settings.signed_in_as": "Signed in as",
   "den_settings.manage_account": "Manage account",
   "den_settings.workers_title": "Shared workspaces",
@@ -1555,7 +1555,7 @@ export default {
   "share.template_item_skills_desc": "Custom skills saved in this workspace.",
   "share.template_item_config": "Commands and config",
   "share.template_item_config_desc":
-    "Reusable commands plus OpenWork/OpenCode config.",
+    "Reusable commands plus Tymer Studio/OpenCode config.",
   "share.view_template": "Share a template",
   "share.view_template_public": "Public template",
   "share.view_template_team": "Share with team",
@@ -1570,7 +1570,7 @@ export default {
     "Share a reusable setup without granting live access to this running workspace.",
   "share.option_team_title": "Share with team",
   "share.option_team_desc":
-    "Save this workspace template to your active OpenWork Cloud organization.",
+    "Save this workspace template to your active Tymer Studio Cloud organization.",
   "share.option_public_title": "Public template",
   "share.option_public_desc":
     "Create a share link anyone can use to start from this template.",
@@ -1581,14 +1581,14 @@ export default {
   "share.create_template_link": "Create template link",
   "share.regenerate_link": "Regenerate link",
   "share.team_intro":
-    "Save this template to your active OpenWork Cloud organization so teammates can open it later from Cloud settings.",
+    "Save this template to your active Tymer Studio Cloud organization so teammates can open it later from Cloud settings.",
   "share.active_cloud_org": "Active Cloud org",
   "share.template_name_label": "Template name",
   "share.sign_in_to_share": "Sign in to share with team",
   "share.saving": "Saving...",
   "share.save_to_team": "Save to team",
   "share.cloud_signin_note":
-    "OpenWork Cloud opens in your browser and returns here after sign-in.",
+    "Tymer Studio Cloud opens in your browser and returns here after sign-in.",
   "share.warning_basic":
     "Share with trusted people only. These credentials grant live access to this workspace.",
   "share.warning_full":
@@ -1613,7 +1613,7 @@ export default {
   "share.subtitle_template_public":
     "Create a public workspace template link anyone can import.",
   "share.subtitle_template_team":
-    "Save a workspace template to your active OpenWork Cloud organization.",
+    "Save a workspace template to your active Tymer Studio Cloud organization.",
   "share.subtitle_access":
     "Reveal the live connection details needed to reach this workspace from another machine.",
 
@@ -1752,13 +1752,13 @@ export default {
   "session.workspace_setup_label": "Workspace setup",
   "session.workspace_setup_title": "Set up your first workspace",
   "session.workspace_setup_desc":
-    "Start with a guided OpenWork workspace, or choose an existing folder you want to work in.",
+    "Start with a guided Tymer Studio workspace, or choose an existing folder you want to work in.",
   "session.create_workspace_title": "Create workspace",
   "session.create_workspace_desc":
     "Open the workspace creator and choose how you want to start.",
   "session.pick_folder_title": "Pick a folder you want to work in",
   "session.pick_folder_desc":
-    "Choose an existing project or notes folder and OpenWork will use it as your workspace.",
+    "Choose an existing project or notes folder and Tymer Studio will use it as your workspace.",
   "session.loading_earlier": "Loading earlier messages...",
   "session.load_earlier": "Load earlier messages",
   "session.jump_to_start": "Jump to start of message",
@@ -1767,7 +1767,7 @@ export default {
   "session.flyout_file_modified": "File Modified",
   "session.attachments_add_token": "Add a server token to attach files.",
   "session.attachments_connect_server":
-    "Connect to OpenWork server to attach files.",
+    "Connect to Tymer Studio server to attach files.",
   "session.unable_to_reveal": "Unable to reveal workspace",
   "session.workspace_path_unavailable": "Workspace path is unavailable.",
   "session.reveal_desktop_only": "Reveal is available in the desktop app.",
@@ -1797,30 +1797,30 @@ export default {
     "Engine runtime is set to Direct. Switching local workers can restart the host and disconnect clients. The token may change after a restart.",
   "session.share_select_workspace": "Select a workspace first.",
   "session.share_openwork_workers_only":
-    "Share service links are available for OpenWork workers.",
-  "session.share_local_host_not_ready": "Local OpenWork host is not ready yet.",
-  "session.share_missing_host_url": "Missing OpenWork host URL.",
-  "session.share_missing_token": "Missing OpenWork token.",
+    "Share service links are available for Tymer Studio workers.",
+  "session.share_local_host_not_ready": "Local Tymer Studio host is not ready yet.",
+  "session.share_missing_host_url": "Missing Tymer Studio host URL.",
+  "session.share_missing_token": "Missing Tymer Studio token.",
   "session.share_active_cloud_org": "Active Cloud org",
   "session.share_choose_org":
     "Choose an organization in Settings -> Cloud before sharing with your team.",
   "session.share_resolve_local_workspace_failed":
-    "Could not resolve this workspace on the local OpenWork host.",
+    "Could not resolve this workspace on the local Tymer Studio host.",
   "session.share_host_url_and_token_required":
-    "OpenWork host URL and token are required.",
+    "Tymer Studio host URL and token are required.",
   "session.share_resolve_remote_workspace_failed":
-    "Could not resolve this workspace on the OpenWork host.",
+    "Could not resolve this workspace on the Tymer Studio host.",
   "session.share_workspace_template_desc":
-    "Full OpenWork workspace template with config, commands, skills, and extra .opencode files.",
+    "Full Tymer Studio workspace template with config, commands, skills, and extra .opencode files.",
   "session.share_publish_workspace_failed":
     "Failed to publish workspace profile",
   "session.share_sign_in_required":
-    "Sign in to OpenWork Cloud in Settings to share with your team.",
+    "Sign in to Tymer Studio Cloud in Settings to share with your team.",
   "session.share_team_fallback_name": "your team templates",
   "session.share_saved_to_org": "Saved {name} to {org}.",
   "session.share_save_team_template_failed": "Failed to save team template",
   "session.share_skills_set_desc":
-    "Complete skills set from an OpenWork workspace.",
+    "Complete skills set from an Tymer Studio workspace.",
   "session.share_no_skills": "No skills found in this workspace.",
   "session.share_publish_skills_failed": "Failed to publish skills set",
   "session.export_desktop_only_local":
@@ -1834,11 +1834,11 @@ export default {
   "session.update_available": "Update available",
   "session.connect_failed": "Connect failed",
   "session.upload_connect_server":
-    "Connect to the OpenWork server to upload files to the shared folder.",
+    "Connect to the Tymer Studio server to upload files to the shared folder.",
   "session.uploaded_to_shared_folder": "Uploaded to the shared folder.",
   "session.create_or_connect_workspace": "Create or connect a workspace",
   "session.allow_once": "Once",
-  "session.connect_to_sync": "Connect to OpenWork server to sync remote files.",
+  "session.connect_to_sync": "Connect to Tymer Studio server to sync remote files.",
   "session.obsidian_worker_relative_only":
     "Only worker-relative files can be opened in Obsidian.",
   "session.resize_workspace_column": "Resize workspace column",
@@ -1929,10 +1929,10 @@ export default {
   "automations.prompt_required": "Prompt is required.",
   "automations.schedule_required": "Schedule is required.",
   "automations.server_needs_token":
-    "OpenWork server needs a token to load scheduled tasks.",
-  "automations.server_not_ready": "OpenWork server not ready.",
+    "Tymer Studio server needs a token to load scheduled tasks.",
+  "automations.server_not_ready": "Tymer Studio server not ready.",
   "automations.server_unavailable":
-    "OpenWork server unavailable. Connect to sync scheduled tasks.",
+    "Tymer Studio server unavailable. Connect to sync scheduled tasks.",
 
   // common
   "common.navigate": "navigate",
@@ -1990,7 +1990,7 @@ export default {
     "Use this when a remote client needs to answer permission prompts or take owner-only actions.",
   "config.reload_active_tasks_warning": "Reloading will stop active tasks.",
   "config.reload_availability_hint":
-    "Reloading is only available for local workers or connected OpenWork servers.",
+    "Reloading is only available for local workers or connected Tymer Studio servers.",
   "config.reload_connect_hint": "Connect to this worker to reload.",
   "config.reload_engine": "Reload engine",
   "config.reload_now_desc":
@@ -2004,19 +2004,19 @@ export default {
     "If a reload was queued while tasks were running, send a resume message afterward.",
   "config.resume_sessions_title": "Resume sessions after auto reload",
   "config.server_needed_hint":
-    "OpenWork server connection needed to sync skills, plugins, and commands.",
+    "Tymer Studio server connection needed to sync skills, plugins, and commands.",
   "config.server_section_desc":
-    "Connect to an OpenWork server. Use the URL plus a collaborator or owner token from your server admin.",
-  "config.server_section_title": "OpenWork server",
+    "Connect to an Tymer Studio server. Use the URL plus a collaborator or owner token from your server admin.",
+  "config.server_section_title": "Tymer Studio server",
   "config.server_sharing_desc":
     "Share these details with a trusted device. Keep the server on the same network for the fastest setup.",
   "config.server_sharing_menu_hint":
     "For per-workspace sharing links, use Share... in the workspace menu.",
-  "config.server_sharing_title": "OpenWork server sharing",
+  "config.server_sharing_title": "Tymer Studio server sharing",
   "config.server_url_hint":
-    "Use the URL shared by your OpenWork server. Local desktop workers reuse a persistent high port in the 48000-51000 range.",
-  "config.server_url_input_label": "OpenWork server URL",
-  "config.server_url_label": "OpenWork Server URL",
+    "Use the URL shared by your Tymer Studio server. Local desktop workers reuse a persistent high port in the 48000-51000 range.",
+  "config.server_url_input_label": "Tymer Studio server URL",
+  "config.server_url_label": "Tymer Studio Server URL",
   "config.starting_server": "Starting server…",
   "config.status_connected": "Connected",
   "config.status_limited": "Limited",
@@ -2085,8 +2085,8 @@ export default {
   "identities.channels_label": "Channels",
   "identities.configured_suffix": "configured",
   "identities.connect_server_desc":
-    "Identities are available when you are connected to an OpenWork host.",
-  "identities.connect_server_title": "Connect to an OpenWork server",
+    "Identities are available when you are connected to an Tymer Studio host.",
+  "identities.connect_server_title": "Connect to an Tymer Studio server",
   "identities.connect_slack": "Connect Slack",
   "identities.connected_badge": "Connected",
   "identities.connecting": "Connecting...",
@@ -2158,7 +2158,7 @@ export default {
   "identities.public_label": "Public",
   "identities.quick_setup": "Quick setup",
   "identities.reconnect_failed":
-    "Reconnect failed. Check OpenWork URL/token and try again.",
+    "Reconnect failed. Check Tymer Studio URL/token and try again.",
   "identities.reconnected": "Reconnected.",
   "identities.reconnected_refreshing":
     "Reconnected. Refreshing worker state...",
@@ -2340,9 +2340,9 @@ export default {
     "Start from a proven recurring workflow, then tailor the prompt before you prepare it in chat.",
   "scheduled.refreshing": "Refreshing",
   "scheduled.reload_activate_hint":
-    "OpenCode loads plugins at startup. Reload OpenWork to activate opencode-scheduler.",
-  "scheduled.reload_activate_title": "Reload OpenWork to activate automations",
-  "scheduled.reload_openwork": "Reload OpenWork",
+    "OpenCode loads plugins at startup. Reload Tymer Studio to activate opencode-scheduler.",
+  "scheduled.reload_activate_title": "Reload Tymer Studio to activate automations",
+  "scheduled.reload_openwork": "Reload Tymer Studio",
   "scheduled.reloading": "Reloading...",
   "scheduled.removed_job": "Removed {name}.",
   "scheduled.run_label": "Run",
@@ -2351,11 +2351,11 @@ export default {
   "scheduled.scheduler_install_requested": "Scheduler install requested.",
   "scheduled.search_placeholder": "Search automations or templates",
   "scheduled.source_local": "From local scheduler",
-  "scheduled.source_remote": "From OpenWork server",
+  "scheduled.source_remote": "From Tymer Studio server",
   "scheduled.subtitle_local":
     "Automations that run on a schedule from this device.",
   "scheduled.subtitle_remote":
-    "Automations that run on a schedule from the connected OpenWork server.",
+    "Automations that run on a schedule from the connected Tymer Studio server.",
   "scheduled.success_status": "Success",
   "scheduled.task_summary_no_prompt": "No prompt or command found.",
   "scheduled.task_summary_prompt": "Prompt",
@@ -2404,7 +2404,7 @@ export default {
   "settings.auto_update_desc": "Download updates automatically (prompts to",
   "settings.auto_update_title": "Auto-update",
   "settings.background_checks_desc":
-    "OpenWork always checks on launch. Also checks once",
+    "Tymer Studio always checks on launch. Also checks once",
   "settings.background_checks_title": "Background checks",
   "settings.base_url_unavailable": "Base URL unavailable",
   "settings.binary_unavailable": "Binary unavailable",
@@ -2423,7 +2423,7 @@ export default {
   "settings.cap_sandbox": "Sandbox: {value}",
   "settings.cap_skills": "Skills: {value}",
   "settings.cap_write": "write",
-  "settings.capabilities_title": "OpenWork server capabilities",
+  "settings.capabilities_title": "Tymer Studio server capabilities",
   "settings.capabilities_unavailable":
     "Capabilities unavailable. Connect with a client token.",
   "settings.checking_for_updates": "Checking for updates",
@@ -2438,14 +2438,14 @@ export default {
   "settings.copy_failed": "Failed to copy runtime report.",
   "settings.copy_json": "Copy JSON",
   "settings.custom_binary_hint":
-    "Use this to point OpenWork at a local OpenCode build",
+    "Use this to point Tymer Studio at a local OpenCode build",
   "settings.custom_binary_label": "Custom OpenCode binary",
   "settings.data_dir_unavailable": "Data directory unavailable",
   "settings.debug_commit": "Commit: {sha}",
   "settings.debug_desktop_app": "Desktop app: {version}",
   "settings.debug_opencode_router_version": "OpenCodeRouter: {version}",
   "settings.debug_opencode_version": "OpenCode: {version}",
-  "settings.debug_openwork_server_version": "OpenWork server: {version}",
+  "settings.debug_openwork_server_version": "Tymer Studio server: {version}",
   "settings.debug_orchestrator_version": "Orchestrator: {version}",
   "settings.debug_section_title": "Developer",
   "settings.deeplink_failed": "Failed to open deep link.",
@@ -2494,15 +2494,15 @@ export default {
   "settings.disconnected_prefix": "Disconnected {resolved}.",
   "settings.disconnecting": "Disconnecting...",
   "settings.docker_containers_desc":
-    "Force-remove Docker containers launched by OpenWork",
-  "settings.docker_containers_title": "OpenWork Docker containers",
+    "Force-remove Docker containers launched by Tymer Studio",
+  "settings.docker_containers_title": "Tymer Studio Docker containers",
   "settings.docker_requires_desktop": "Docker cleanup requires the desktop app",
   "settings.downloading_bytes": "Downloading {downloaded}",
   "settings.downloading_progress":
     "Downloading {downloaded} / {total} ({percent}%)",
   "settings.enable_exa": "Enable Exa web search",
   "settings.enable_exa_desc":
-    "Applies when OpenWork Orchestrator launches OpenCode. Off by",
+    "Applies when Tymer Studio Orchestrator launches OpenCode. Off by",
   "settings.enabled": "Config:",
   "settings.engine_bundled": "Bundled (recommended)",
   "settings.engine_bundled_hint":
@@ -2524,7 +2524,7 @@ export default {
   "settings.feedback_badge": "We read every message",
   "settings.feedback_desc":
     "Tell us what feels great and what feels rough. Feedback goes straight to the team and helps us prioritize what ships next.",
-  "settings.feedback_title": "Help shape OpenWork",
+  "settings.feedback_title": "Help shape Tymer Studio",
   "settings.group_global": "Workspace",
   "settings.group_workspace": "Global",
   "settings.hide_titlebar": "Hide titlebar",
@@ -2557,14 +2557,14 @@ export default {
   "settings.no_worker_directory": "No project directory",
   "settings.no_worker_path": "No worker path available",
   "settings.nuke_confirm_dev":
-    "This is irreversible. It WILL delete all OpenWork data for this dev build and all isolated OpenCode dev config, auth, cache, data, and state, then quit OpenWork. Continue?",
+    "This is irreversible. It WILL delete all Tymer Studio data for this dev build and all isolated OpenCode dev config, auth, cache, data, and state, then quit Tymer Studio. Continue?",
   "settings.nuke_confirm_prod":
-    "This is irreversible. It WILL delete all OpenWork data for this dev build and all isolated OpenCode dev config, auth, cache, data, and state, then quit OpenWork. Continue?",
-  "settings.nuke_failed": "Failed to remove OpenWork and OpenCode state.",
+    "This is irreversible. It WILL delete all Tymer Studio data for this dev build and all isolated OpenCode dev config, auth, cache, data, and state, then quit Tymer Studio. Continue?",
+  "settings.nuke_failed": "Failed to remove Tymer Studio and OpenCode state.",
   "settings.nuke_hint":
     "Use this only when you want to fully reset the desktop app and its OpenCode runtime state.",
   "settings.nuke_success":
-    "Removed OpenWork and OpenCode state. OpenWork is closing...",
+    "Removed Tymer Studio and OpenCode state. Tymer Studio is closing...",
   "settings.offline": "Unavailable",
   "settings.open_deeplink_action": "Opening...",
   "settings.open_deeplink_button": "Hide",
@@ -2583,10 +2583,10 @@ export default {
   "settings.opencode_url_unavailable": "Base URL unavailable",
   "settings.opening": "Open deeplink",
   "settings.openwork_config_sidecar_desc": "Config and approvals sidecar.",
-  "settings.openwork_diagnostics_title": "OpenWork server diagnostics",
+  "settings.openwork_diagnostics_title": "Tymer Studio server diagnostics",
   "settings.openwork_server_desc":
     "Session control plane for app sync, workers, and remote",
-  "settings.openwork_server_label": "OpenWork server",
+  "settings.openwork_server_label": "Tymer Studio server",
   "settings.orchestrator_daemon_layer_desc": "Workspace orchestration layer.",
   "settings.orchestrator_daemon_title": "Orchestrator daemon",
   "settings.production_mode_badge": "Dev mode",
@@ -2596,12 +2596,12 @@ export default {
   "settings.providers_desc": "Connect services for models and tools.",
   "settings.providers_title": "Providers",
   "settings.quit_hint":
-    "OpenWork quits immediately after cleanup so the next launch starts from a blank local state for this mode.",
+    "Tymer Studio quits immediately after cleanup so the next launch starts from a blank local state for this mode.",
   "settings.reconnect_failed":
     "Reconnect failed. Check server URL/token and try again.",
   "settings.reconnect_server": "Reconnecting...",
-  "settings.reconnect_server_failed": "Failed to reconnect OpenWork server.",
-  "settings.reconnected": "Reconnected to OpenWork server.",
+  "settings.reconnect_server_failed": "Failed to reconnect Tymer Studio server.",
+  "settings.reconnected": "Reconnected to Tymer Studio server.",
   "settings.reconnecting": "Reconnecting...",
   "settings.removing_containers": "Removing containers...",
   "settings.removing_local_state": "Removing local state...",
@@ -2613,7 +2613,7 @@ export default {
     "With dev mode active, it only clears the isolated OpenCode dev state inside openwork-dev-data.",
   "settings.reset_openwork_desc_prod":
     "With dev mode active, it only clears the isolated OpenCode dev state inside openwork-dev-data.",
-  "settings.reset_openwork_title": "Reset OpenWork + OpenCode state",
+  "settings.reset_openwork_title": "Reset Tymer Studio + OpenCode state",
   "settings.reset_recovery_desc": "Clear data or restart the setup flow.",
   "settings.reset_recovery_title": "Reset & Recovery",
   "settings.reset_requires_confirm":
@@ -2621,7 +2621,7 @@ export default {
   "settings.reset_startup_pref": "Reset startup preference",
   "settings.resetting": "Resetting...",
   "settings.restart_blocked_message":
-    "OpenWork needs to restart to finish this update. To avoid interrupting your current work, install is paused until your active runs finish or you stop them.",
+    "Tymer Studio needs to restart to finish this update. To avoid interrupting your current work, install is paused until your active runs finish or you stop them.",
   "settings.restart_failed": "Restart failed. Check logs and try again.",
   "settings.restart_local_server": "Restarting...",
   "settings.restart_opencode": "Restarting...",
@@ -2643,9 +2643,9 @@ export default {
   "settings.runtime_debug_desc":
     "Readable diagnostics snapshot with one-click export.",
   "settings.runtime_debug_title": "Runtime debug report",
-  "settings.runtime_desc": "Status for your local engine and OpenWork server.",
+  "settings.runtime_desc": "Status for your local engine and Tymer Studio server.",
   "settings.runtime_direct": "Direct (OpenCode)",
-  "settings.runtime_orchestrator": "OpenWork Orchestrator",
+  "settings.runtime_orchestrator": "Tymer Studio Orchestrator",
   "settings.runtime_title": "Runtime",
   "settings.sandbox_error": "ready",
   "settings.sandbox_export_hint": "Use Export in Runtime debug report above to",
@@ -2689,17 +2689,17 @@ export default {
   "settings.tab_description_advanced":
     "Inspect runtime health, connection state, and developer-facing controls.",
   "settings.tab_description_appearance":
-    "Adjust how OpenWork looks across desktop, system theme, and app chrome.",
+    "Adjust how Tymer Studio looks across desktop, system theme, and app chrome.",
   "settings.tab_description_automations":
     "Create and manage scheduled automations from workspace settings.",
   "settings.tab_description_debug":
     "Review runtime diagnostics, logs, and low-level debugging utilities.",
   "settings.tab_description_den":
-    "Manage your OpenWork Cloud connection, hosted workers, and workspace access.",
+    "Manage your Tymer Studio Cloud connection, hosted workers, and workspace access.",
   "settings.tab_description_extensions":
     "Manage MCP apps and OpenCode plugins for this workspace.",
   "settings.tab_description_general":
-    "Connect providers, choose the default model, authorize folders, and control the selected OpenWork workspace plus its runtime connection.",
+    "Connect providers, choose the default model, authorize folders, and control the selected Tymer Studio workspace plus its runtime connection.",
   "settings.tab_description_messaging":
     "Configure router identities and inbox behavior from workspace settings.",
   "settings.tab_description_model":
@@ -2720,7 +2720,7 @@ export default {
   "settings.update_last_checked": "Last checked {time}",
   "settings.update_published": "Published {date}",
   "settings.update_ready_version": "Ready to install: v{version}",
-  "settings.updates_desc": "Keep OpenWork up to date.",
+  "settings.updates_desc": "Keep Tymer Studio up to date.",
   "settings.versions_desc": "Sidecar + desktop build info.",
   "settings.versions_title": "Versions",
   "settings.window_appearance_desc": "Customize window appearance.",
@@ -2745,7 +2745,7 @@ export default {
   // skills
   "skills.add_custom_repo": "Add custom GitHub repo",
   "skills.add_git_repo": "Add git repo",
-  "skills.add_openwork_hub": "Add OpenWork Hub",
+  "skills.add_openwork_hub": "Add Tymer Studio Hub",
   "skills.available_from_hub": "Available from Hub",
   "skills.copy_link_failed": "Failed to copy link",
   "skills.create_in_chat": "Create skill in chat",

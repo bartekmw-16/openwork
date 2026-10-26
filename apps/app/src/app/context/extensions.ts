@@ -447,9 +447,9 @@ export function createExtensionsStore(options: {
 
     if (!canUseOpenworkServer) {
       if (isRemoteWorkspace) {
-        return { ok: false, message: "OpenWork server unavailable. Connect to install skills." };
+        return { ok: false, message: "Tymer Studio server unavailable. Connect to install skills." };
       }
-      return { ok: false, message: "Hub install requires OpenWork server." };
+      return { ok: false, message: "Hub install requires Tymer Studio server." };
     }
 
     options.setBusy(true);
@@ -656,7 +656,7 @@ export function createExtensionsStore(options: {
     const c = options.client();
     if (!c) {
       setSkills([]);
-      setSkillsStatus("OpenWork server unavailable. Connect to load skills.");
+      setSkillsStatus("Tymer Studio server unavailable. Connect to load skills.");
       return;
     }
 
@@ -801,9 +801,9 @@ export function createExtensionsStore(options: {
     }
 
     if (!isLocalWorkspace && !canUseOpenworkServer) {
-      setPluginStatus("OpenWork server unavailable. Connect to manage plugins.");
+      setPluginStatus("Tymer Studio server unavailable. Connect to manage plugins.");
       setPluginList([]);
-      setSidebarPluginStatus("Connect an OpenWork server to load plugins.");
+      setSidebarPluginStatus("Connect a Tymer Studio server to load plugins.");
       setSidebarPluginList([]);
       refreshPluginsInFlight = false;
       return;
@@ -911,7 +911,7 @@ export function createExtensionsStore(options: {
     }
 
     if (!isLocalWorkspace && !canUseOpenworkServer) {
-      setPluginStatus("OpenWork server unavailable. Connect to manage plugins.");
+      setPluginStatus("Tymer Studio server unavailable. Connect to manage plugins.");
       return;
     }
 
@@ -1006,7 +1006,7 @@ export function createExtensionsStore(options: {
     }
 
     if (!isLocalWorkspace && !canUseOpenworkServer) {
-      setPluginStatus("OpenWork server unavailable. Connect to manage plugins.");
+      setPluginStatus("Tymer Studio server unavailable. Connect to manage plugins.");
       return;
     }
 
@@ -1328,7 +1328,7 @@ export function createExtensionsStore(options: {
     }
 
     if (isRemoteWorkspace) {
-      setSkillsStatus("OpenWork server unavailable. Connect to view skills.");
+      setSkillsStatus("Tymer Studio server unavailable. Connect to view skills.");
       return null;
     }
 
@@ -1396,7 +1396,7 @@ export function createExtensionsStore(options: {
     }
 
     if (isRemoteWorkspace) {
-      setSkillsStatus("OpenWork server unavailable. Connect to edit skills.");
+      setSkillsStatus("Tymer Studio server unavailable. Connect to edit skills.");
       return;
     }
 

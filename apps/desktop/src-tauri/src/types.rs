@@ -2,6 +2,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
+pub struct SessionIcon {
+    #[serde(rename = "type")]
+    pub icon_type: String,
+    pub value: Option<String>,
+    pub data_url: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct WorkspaceOpenworkConfig {
     pub version: u32,
     pub workspace: Option<WorkspaceOpenworkWorkspace>,
@@ -334,6 +343,8 @@ pub struct WorkspaceInfo {
     pub openwork_workspace_id: Option<String>,
     #[serde(default)]
     pub openwork_workspace_name: Option<String>,
+    #[serde(default)]
+    pub icon: Option<SessionIcon>,
 
     // Sandbox lifecycle metadata (desktop-managed)
     #[serde(default)]

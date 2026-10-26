@@ -220,7 +220,7 @@ export function createSystemState(options: {
     if (!reasons.length) {
       return {
         title: "Reload required",
-        body: "OpenWork detected changes that require reloading the OpenCode instance.",
+        body: "Tymer Studio detected changes that require reloading the OpenCode instance.",
       };
     }
 
@@ -268,7 +268,7 @@ export function createSystemState(options: {
 
     return {
       title: "Reload required",
-      body: "OpenWork detected OpenCode configuration changes. Reload the engine to apply them.",
+      body: "Tymer Studio detected OpenCode configuration changes. Reload the engine to apply them.",
     };
   });
 
@@ -423,7 +423,7 @@ export function createSystemState(options: {
     try {
       const result = await sandboxCleanupOpenworkContainers();
       if (!result.candidates.length) {
-        setDockerCleanupResult("No OpenWork Docker containers found.");
+        setDockerCleanupResult("No Tymer Studio Docker containers found.");
         return;
       }
 
